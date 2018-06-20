@@ -3,7 +3,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<title>註冊會員</title>
+<title>會員登入</title>
 <meta charset="utf-8" />
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, user-scalable=no" />
@@ -20,7 +20,8 @@
 
 				<!-- Header -->
 				<header id="header">
-					<a href="index.html" class="logo"><strong>首頁>會員註冊</strong></a>
+					<a href="index.html" class="logo"><strong>首頁</strong></a>
+					>會員登入
 				</header>
 
 				<!-- Banner -->
