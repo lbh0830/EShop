@@ -24,7 +24,7 @@
 
 				<!-- Banner -->
 				<section id="banner"> <!-- Form -->
-				<form method="post" action="#">
+				<form method="post" action="Login">
 					<div class="row gtr-uniform">
 						<div class="col-12 col-12-xsmall">
 							<input type="text" id="demo-name" name="valUser"

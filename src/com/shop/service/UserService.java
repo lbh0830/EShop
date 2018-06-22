@@ -5,18 +5,26 @@ import com.shop.model.AccountBean;
 
 public class UserService {
 	IAccountDAO iAccountDAO;
+
 	public UserService(IAccountDAO userDAO) {
 		this.iAccountDAO = userDAO;
 	}
-	
+
 	public boolean signup(AccountBean account) {
-		boolean success = false;
-		if(!iAccountDAO.isUserExisted(account)){
+		boolean isSuccessed = false;
+		if (!iAccountDAO.isUserExisted(account)) {
 			iAccountDAO.addAccount(account);
-			success = true;
+			isSuccessed = true;
 		}
-		return success;
+		return isSuccessed;
 	}
-	
-	
+
+	public boolean login(AccountBean account) {
+		boolean isSuccessed = false;
+		if(!iAccountDAO.getAccount(account).getAccount().equals("")){
+			isSuccessed = true;
+		}
+		return isSuccessed;
+	}
+
 }
