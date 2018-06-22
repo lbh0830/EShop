@@ -1,4 +1,4 @@
-package com.shop.DAO;
+package com.shop.model;
 
 import java.io.Serializable;
 
