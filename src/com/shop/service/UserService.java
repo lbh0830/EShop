@@ -21,7 +21,8 @@ public class UserService {
 
 	public boolean login(AccountBean account) {
 		boolean isSuccessed = false;
-		if(!iAccountDAO.getAccount(account).getAccount().equals("")){
+		iAccountDAO.getAccount(account);
+		if(!(account.getName() == null)){
 			isSuccessed = true;
 		}
 		return isSuccessed;

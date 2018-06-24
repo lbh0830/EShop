@@ -3,7 +3,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<title>註冊會員</title>
+<title>登入會員</title>
 <meta charset="utf-8" />
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, user-scalable=no" />
@@ -19,7 +19,7 @@
 			<div class="inner">
 
 				<!-- Header -->
-				<header id="header"> <a href="index.html" class="logo"><strong>首頁>登入</strong></a>
+				<header id="header"> <a href="index.jsp" class="logo"><strong>首頁>登入</strong></a>
 				</header>
 
 				<!-- Banner -->
@@ -62,7 +62,7 @@
 				<h2>Menu</h2>
 				</header>
 				<ul>
-					<li><a href="index.html">回首頁</a></li>
+					<li><a href="index.jsp">回首頁</a></li>
 					<li><a href="login.jsp">登入</a> <a href="signup.jsp">註冊會員</a></li>
 					<li><a href="elements.html">購物車</a></li>
 					<li><span class="opener">商品分類</span>
