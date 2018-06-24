@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>E-Shop</title>
+<title>商品管理</title>
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, user-scalable=no" />
 <link rel="stylesheet" href="assets/css/main.css" />
@@ -20,7 +20,7 @@
 
 				<!-- Header -->
 				<header id="header">
-					<a href="index.jsp" class="logo"><strong>首頁</strong></a>
+					<strong>首頁>商品管理</strong>
 				</header>
 
 				<!-- Banner -->
@@ -75,7 +75,6 @@
 							</ul></li>
 						<li><a href="order.jsp">訂單管理</a></li>
 						<%
-						if(session.getAttribute("login")!=null){
 							AccountBean account =(AccountBean) session.getAttribute("login");
 							if(account.getPrivilege()!=0){
 								out.print("<li><span class='opener'>後台管理</span><ul>");
@@ -91,7 +90,6 @@
 									out.print("<li><a href='newsAdmin.jsp'>最新消息管理</a></li>");
 								out.print("</ul></li>");
 							}
-						}
 						%>
 					</ul>
 				</nav>
