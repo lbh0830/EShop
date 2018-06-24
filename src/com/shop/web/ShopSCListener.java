@@ -28,6 +28,8 @@ public class ShopSCListener implements ServletContextListener {
         } catch (NamingException ex) {
             throw new RuntimeException(ex);
         }
+    	
+    	
     }
     
 	public void contextDestroyed(ServletContextEvent sce)  { 

@@ -1,16 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
+<%@page import="com.shop.model.AccountBean"%>
 <!DOCTYPE html>
 <html>
 <head>
-<title>登出</title>
+<title>會員管理</title>
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, user-scalable=no" />
-<meta http-equiv="refresh" content="3;URL=index.jsp">
 <link rel="stylesheet" href="assets/css/main.css" />
 </head>
 <body class="is-preload">
-	<%session.removeAttribute("login"); %>
+
 	<!-- Wrapper -->
 	<div id="wrapper">
 
@@ -20,17 +20,44 @@
 
 				<!-- Header -->
 				<header id="header">
-					<a href="index.jsp" class="logo"><strong>首頁</strong></a>
+					<a href="index.jsp" class="logo"><strong>首頁>會員管理</strong></a>
 				</header>
 
-				<!-- Banner -->
-				<section id="banner">
-					<div class="content">
-						<header>
-							<h2>您已成功登出，三秒後自動返回首頁</h2>
-						</header>
+			
+					<br><br><h3>會員資料</h3>
+					<div class="table-wrapper">
+					<% AccountBean account = (AccountBean)session.getAttribute("login");%>
+					
+						<table class="alt">
+							<tbody>
+								<tr>
+									<td>帳號</td>
+									<td><%=account.getAccount() %></td>
+								</tr>
+								<tr>
+									<td>姓名</td>
+									<td><%=account.getName() %></td>
+
+								</tr>
+								<tr>
+									<td>地址</td>
+									<td><%=account.getAddr() %></td>
+
+								</tr>
+								<tr>
+									<td>電話</td>
+									<td><%=account.getTel() %></td>
+
+								</tr>
+								<tr>
+									<td>電子信箱</td>
+									<td><%=account.getEmail() %></td>
+								</tr>
+							</tbody>
+						</table>
+						<a href="memberUpdate.jsp" class="button primary">修改個人資料</a>
 					</div>
-				</section>
+			
 			</div>
 		</div>
 
@@ -53,7 +80,7 @@
 					<ul>
 						<li><a href="index.jsp">回首頁</a></li>
 						<%
-							if(session.getAttribute("login")==null)
+							if (session.getAttribute("login") == null)
 								out.print("<li><a href='login.jsp'>登入</a> <a href='signup.jsp'>註冊會員</a></li>");
 							else
 								out.print("<li><a href='logout.jsp'>登出</a> <a href='member.jsp'>會員管理</a></li>");
@@ -73,7 +100,7 @@
 
 				<!-- Footer -->
 				<footer id="footer">
-					<p class="copyright">&copy;All rights reserved.</p>
+					<p class="copyright">&copy; Untitled. All rights reserved.</p>
 				</footer>
 
 			</div>
@@ -87,11 +114,6 @@
 	<script src="assets/js/breakpoints.min.js"></script>
 	<script src="assets/js/util.js"></script>
 	<script src="assets/js/main.js"></script>
-
-</body>
-</html>
-</head>
-<body>
 
 </body>
 </html>

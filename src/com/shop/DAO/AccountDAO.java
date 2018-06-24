@@ -84,6 +84,23 @@ public class AccountDAO implements IAccountDAO {
 		}
 	}
 
+	public void updateAccount(AccountBean account) {
+		try {
+			conn = dataSource.getConnection();
+			stmt = conn.prepareStatement("UPDATE member SET password=?, name=?, addr=?, tel=?, email=? WHERE account=?");
+			stmt.setString(1, account.getPassword());
+			stmt.setString(2, account.getName());
+			stmt.setString(3, account.getAddr());
+			stmt.setString(4, account.getTel());
+			stmt.setString(5, account.getEmail());
+			stmt.setString(6, account.getAccount());
+			stmt.executeUpdate();
+		} catch (SQLException e) {
+			ex = e;
+		} finally {
+			closeConnect();
+		}
+	}
 	public void closeConnect() {
 		if (conn != null) {
 			try {

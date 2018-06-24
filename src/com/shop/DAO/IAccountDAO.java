@@ -6,4 +6,5 @@ public interface IAccountDAO {
     boolean isUserExisted(AccountBean account);
     void addAccount(AccountBean account);
     void getAccount(AccountBean account); 
+    void updateAccount(AccountBean account);
 }

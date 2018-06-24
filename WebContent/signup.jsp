@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <title>註冊會員</title>
@@ -83,16 +83,16 @@
 				<ul>
 					<li><a href="index.jsp">回首頁</a></li>
 					<li><a href="login.jsp">登入</a> <a href="signup.jsp">註冊會員</a></li>
-					<li><a href="elements.html">購物車</a></li>
-					<li><span class="opener">商品分類</span>
-						<ul>
-							<li><a href="#">配件</a></li>
-							<li><a href="#">鞋款</a></li>
-							<li><a href="#">背包</a></li>
-							<li><a href="#">帽子</a></li>
-						</ul></li>
-					<li><a href="#">訂單管理</a></li>
-					<li><a href="#">後台管理</a></li>
+					<li><a href="cart.jsp">購物車</a></li>
+						<li><span class="opener">商品分類</span>
+							<ul>
+								<li><a href="commodity.jsp?item=accessories">配件</a></li>
+								<li><a href="commodity.jsp?item=shoes">鞋款</a></li>
+								<li><a href="commodity.jsp?item=backpacks">背包</a></li>
+								<li><a href="commodity.jsp?item=hats">帽子</a></li>
+							</ul></li>
+						<li><a href="order.jsp">訂單管理</a></li>
+						<li><a href="backend.jsp">後台管理</a></li>
 				</ul>
 				</nav>
 

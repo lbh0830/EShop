@@ -27,5 +27,8 @@ public class UserService {
 		}
 		return isSuccessed;
 	}
-
+	
+	public void update(AccountBean account) {
+		iAccountDAO.updateAccount(account);
+	}
 }
