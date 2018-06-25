@@ -15,8 +15,8 @@ import com.shop.model.CommodityBean;
 
 public class CommodityDAO implements ICommodityDAO {
 	private DataSource dataSource;
-	private Connection conn;
-	private PreparedStatement stmt;
+	private Connection conn,conn1;
+	private PreparedStatement stmt,stmt1;
 	private SQLException ex;
 	private ResultSet rs;
 
@@ -137,6 +137,7 @@ public class CommodityDAO implements ICommodityDAO {
 
 	@Override
 	public void addCommodity(CommodityBean commodity) {
+		System.out.println(commodity.getDetail());
 		try {
 			conn = dataSource.getConnection();
 			stmt = conn.prepareStatement(
@@ -162,10 +163,10 @@ public class CommodityDAO implements ICommodityDAO {
 		SimpleDateFormat bartDateFormat = new SimpleDateFormat("yyyyMMdd");
 		num = bartDateFormat.format(new Date());
 		try {
-			conn = dataSource.getConnection();
-			stmt = conn.prepareStatement("SELECT MAX(right(id,3))+1 AS max FROM commodity WHERE LEFT(id,8)=?");
-			stmt.setString(1, num);
-			rs = stmt.executeQuery();
+			conn1 = dataSource.getConnection();
+			stmt1 = conn1.prepareStatement("SELECT LPAD(MAX(right(id,3))+1,3,0) AS max FROM commodity WHERE LEFT(id,8)=?");
+			stmt1.setString(1, num);
+			rs = stmt1.executeQuery();
 			if (rs.next()) {
 				num += rs.getString("max");
 			} else {
@@ -174,7 +175,25 @@ public class CommodityDAO implements ICommodityDAO {
 		} catch (SQLException e) {
 			ex = e;
 		} finally {
-			closeConnect();
+			if (conn1 != null) {
+				try {
+					conn1.close();
+				} catch (SQLException e) {
+					if (ex == null)
+						ex = e;
+				}
+			}
+			if (stmt1 != null) {
+				try {
+					stmt1.close();
+				} catch (SQLException e) {
+					if (ex == null) {
+						ex = e;
+					}
+				}
+			}
+			if (ex != null)
+				throw new RuntimeException(ex);
 		}
 		return num;
 	}

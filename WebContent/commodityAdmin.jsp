@@ -26,8 +26,8 @@
 				<header id="header">
 					<strong>首頁>商品管理</strong>
 				</header>
-				
-				
+
+
 				<br> <br>
 				<h3>商品一覽</h3>
 				<div class="col-12">
@@ -44,14 +44,14 @@
 					<table class="alt">
 						<thead>
 							<tr>
-								<th>商品編號</th>
-								<th>商品名稱</th>
-								<th>縮圖</th>
-								<th>分類</th>
-								<th>單價</th>
-								<th>數量</th>
-								<th>詳細資訊</th>
-								<th>規格</th>
+								<th class="sort"><a class="logo" href="#"><strong>商品編號</strong></a></th>
+								<th class="sort"><a class="logo" href="#"><strong>商品名稱</strong></a></th>
+								<th><strong>縮圖</strong></th>
+								<th><strong>分類</strong></th>
+								<th class="sort"><a class="logo" href="#"><strong>單價</strong></a></th>
+								<th class="sort"><a class="logo" href="#"><strong>數量</strong></a></th>
+								<th><strong>詳細資訊</strong></th>
+								<th class="sort"><a class="logo" href="#"><strong>規格</strong></a></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -65,7 +65,14 @@
 								<td><%=comm.getCategory()%></td>
 								<td><%=comm.getPrice()%></td>
 								<td><%=comm.getQuantity()%></td>
-								<td><%=comm.getDetail()%></td>
+								<%
+								String str;
+								if(comm.getDetail().length()>12) 
+									 str = comm.getDetail().substring(0,12)+"...";
+								else
+									 str = comm.getDetail();
+								%>
+								<td><%=str%></td>
 								<td><%=comm.getSpec()%></td>
 							</tr>
 							<%
@@ -149,6 +156,27 @@
 	<script src="assets/js/breakpoints.min.js"></script>
 	<script src="assets/js/util.js"></script>
 	<script src="assets/js/main.js"></script>
-
+	<script>
+		$(document).on('click','th.sort',function() {
+					var table = $(this).parents('table').eq(0);
+					var rows = table.find('tr:gt(0)').toArray().sort(
+							comparer($(this).index()));
+					this.asc = !this.asc;
+					if (!this.asc) {
+						rows = rows.reverse();
+					}
+					table.children('tbody').empty().html(rows);
+				});
+		function comparer(index) {
+			return function(a, b) {
+				var valA = getCellValue(a, index), valB = getCellValue(b, index);
+				return $.isNumeric(valA) && $.isNumeric(valB) ? valA - valB
+						: valA.localeCompare(valB);
+			};
+		}
+		function getCellValue(row, index) {
+			return $(row).children('td').eq(index).text();
+		}
+	</script>
 </body>
 </html>

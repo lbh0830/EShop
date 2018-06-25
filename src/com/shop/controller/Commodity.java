@@ -32,7 +32,7 @@ public class Commodity extends HttpServlet {
 			break;
 		case "add":
 			req.getRequestDispatcher("commodityAdd.jsp").include(req, resp);
-
+			
 			break;
 		case "update":
 
@@ -51,15 +51,5 @@ public class Commodity extends HttpServlet {
 		doGet(request, response);
 	}
 
-	protected void add(HttpServletRequest req, HttpServletResponse resp) {
-		CommodityBean cb = new CommodityBean();
-		String name = req.getParameter("valName");
-		String category = req.getParameter("valCategory");
-		String  = req.getParameter("valName");
-		String name = req.getParameter("valName");
-		String name = req.getParameter("valName");
-		String name = req.getParameter("valName");
-		String name = req.getParameter("valName");
-		String name = req.getParameter("valName");
-	}
+
 }

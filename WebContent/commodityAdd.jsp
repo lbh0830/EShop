@@ -31,7 +31,7 @@
 				<br> <br>
 				<h3>新增商品</h3>
 				<!-- Form -->
-				<form method="post" action="Signup" onsubmit="return check_passwd()">
+				<form method="post" action="CommodityAdd" onsubmit="return check_passwd()">
 					<div class="row gtr-uniform">
 						<div class="col-12 col-12-xsmall">
 							<input type="text" id="name" name="valName" placeholder="商品名稱"
@@ -65,8 +65,7 @@
 								required />
 						</div>
 						<div class="col-12 col-12-xsmall">
-							<input type="text" id="" name="valImage" placeholder="圖片檔"
-								required />
+							<input type="file" id="" name="valImage" required />
 						</div>
 					</div>
 					<br>

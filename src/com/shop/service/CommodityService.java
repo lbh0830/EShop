@@ -18,8 +18,7 @@ public class CommodityService {
 	}	
 	
 	public void add(CommodityBean commodity) {
-		
-		
+		iCommodityDAO.addCommodity(commodity);
 		
 	}
 }

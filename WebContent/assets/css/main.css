@@ -2394,11 +2394,12 @@ input, select, textarea {
 			border-left: 0;
 			border-right: 0;
 		}
-
-			table tbody tr:nth-child(2n + 1) {
-				background-color: rgba(230, 235, 237, 0.25);
-			}
-
+		
+		table tbody tr:nth-child(2n + 1) {
+			background-color: rgba(230, 235, 237, 0.25);
+		}
+		
+		
 		table td {
 			padding: 0.75em 0.75em;
 		}
