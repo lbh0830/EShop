@@ -3,9 +3,15 @@ package com.shop.model;
 import java.io.Serializable;
 
 public class CommodityBean implements Serializable {
-	String name, category, detail, spec, image;
+	String name, category, detail, spec, image, id;
 	int price, quantity;
+	public String getId() {
+		return id;
+	}
 
+	public void setId(String id) {
+		this.id = id;
+	}
 	public String getName() {
 		return name;
 	}

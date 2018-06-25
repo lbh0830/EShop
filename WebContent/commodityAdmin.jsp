@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="com.shop.model.AccountBean" %>
+<%@ page import="com.shop.model.AccountBean,com.shop.model.CommodityBean" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,20 +24,39 @@
 				</header>
 
 				<!-- Banner -->
-				<section id="banner">
-					<div class="content">
-						<header>
-							<h1>Title</h1>
-						</header>
-						<p>在這裡扯一些五四三</p>
-						<ul class="actions">
-							<li><a href="#" class="button big">開始購物</a></li>
-						</ul>
+				<br><br><h3>會員資料</h3>
+					<div class="table-wrapper">
+					<% CommodityBean cb = (CommodityBean)session.getAttribute("login");%>
+					
+						<table class="alt">
+							<tbody>
+								<tr>
+									<td>帳號</td>
+									<td><%=account.getAccount() %></td>
+								</tr>
+								<tr>
+									<td>姓名</td>
+									<td><%=account.getName() %></td>
+
+								</tr>
+								<tr>
+									<td>地址</td>
+									<td><%=account.getAddr() %></td>
+
+								</tr>
+								<tr>
+									<td>電話</td>
+									<td><%=account.getTel() %></td>
+
+								</tr>
+								<tr>
+									<td>電子信箱</td>
+									<td><%=account.getEmail() %></td>
+								</tr>
+							</tbody>
+						</table>
+						<a href="memberUpdate.jsp" class="button primary">修改個人資料</a>
 					</div>
-					<span class="image object"> <img src="images/HomePic.png"
-						alt="購物圖" />
-					</span>
-				</section>
 			</div>
 		</div>
 

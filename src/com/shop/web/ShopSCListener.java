@@ -10,6 +10,8 @@ import javax.servlet.annotation.WebListener;
 import javax.sql.DataSource;
 
 import com.shop.DAO.AccountDAO;
+import com.shop.DAO.CommodityDAO;
+import com.shop.service.CommodityService;
 import com.shop.service.UserService;
 
 @WebListener
@@ -23,6 +25,7 @@ public class ShopSCListener implements ServletContextListener {
             ServletContext context = sce.getServletContext();
             context.setAttribute("dataSource", dataSource);            
             context.setAttribute("userService", new UserService(new AccountDAO(dataSource)));
+            context.setAttribute("commodityService", new CommodityService(new CommodityDAO(dataSource)));
             System.out.println("testestestsetsetset");
 //            context.setAttribute("message", new MessageDAO());            
         } catch (NamingException ex) {
