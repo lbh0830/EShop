@@ -58,7 +58,7 @@ public class CommodityDAO implements ICommodityDAO {
 		return list;
 	}
 
-	public List<CommodityBean> getCommodity(String sorting, boolean isDESC, String cate) {
+	public List<CommodityBean> getCommodity(String sorting, boolean isDESC, String cate) {		//給MEMBER用的
 		List<CommodityBean> list = new ArrayList<CommodityBean>();
 
 		try {

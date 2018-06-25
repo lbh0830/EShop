@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ page import="com.shop.model.AccountBean,com.shop.model.CommodityBean" %>
+	pageEncoding="UTF-8"%>
+<%@ page
+	import="com.shop.model.AccountBean,com.shop.model.CommodityBean,java.util.*"%>
+<%
+	List<CommodityBean> list = (ArrayList<CommodityBean>) session.getAttribute("commodity");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,39 +28,48 @@
 				</header>
 
 				<!-- Banner -->
-				<br><br><h3>會員資料</h3>
-					<div class="table-wrapper">
-					<% CommodityBean cb = (CommodityBean)session.getAttribute("login");%>
-					
-						<table class="alt">
-							<tbody>
-								<tr>
-									<td>帳號</td>
-									<td><%=account.getAccount() %></td>
-								</tr>
-								<tr>
-									<td>姓名</td>
-									<td><%=account.getName() %></td>
-
-								</tr>
-								<tr>
-									<td>地址</td>
-									<td><%=account.getAddr() %></td>
-
-								</tr>
-								<tr>
-									<td>電話</td>
-									<td><%=account.getTel() %></td>
-
-								</tr>
-								<tr>
-									<td>電子信箱</td>
-									<td><%=account.getEmail() %></td>
-								</tr>
-							</tbody>
-						</table>
-						<a href="memberUpdate.jsp" class="button primary">修改個人資料</a>
-					</div>
+				<br> <br>
+				<h3>商品一覽</h3>
+				<div class="table-wrapper">
+					<%
+						if (list != null) {
+					%>
+					<table class="alt">
+						<thead>
+							<tr>
+								<th>商品編號</th>
+								<th>商品名稱</th>
+								<th>縮圖</th>
+								<th>分類</th>
+								<th>單價</th>
+								<th>數量</th>
+								<th>詳細資訊</th>
+								<th>規格</th>
+							</tr>
+						</thead>
+						<tbody>
+							<%
+								for (CommodityBean comm : list) {
+							%>
+							<tr>
+								<td><%=comm.getId()%></td>
+								<td><%=comm.getName()%></td>
+								<td><%=comm.getImage()%></td>
+								<td><%=comm.getCategory()%></td>
+								<td><%=comm.getPrice()%></td>
+								<td><%=comm.getQuantity()%></td>
+								<td><%=comm.getDetail()%></td>
+								<td><%=comm.getSpec()%></td>
+							</tr>
+							<%
+								}
+								} else {
+									out.print("目前尚無商品");
+								}
+							%>
+						</tbody>
+					</table>
+				</div>
 			</div>
 		</div>
 
@@ -79,7 +92,7 @@
 					<ul>
 						<li><a href="index.jsp">回首頁</a></li>
 						<%
-							if(session.getAttribute("login")==null)
+							if (session.getAttribute("login") == null)
 								out.print("<li><a href='login.jsp'>登入</a> <a href='signup.jsp'>註冊會員</a></li>");
 							else
 								out.print("<li><a href='logout.jsp'>登出</a> <a href='member.jsp'>會員管理</a></li>");
@@ -94,18 +107,18 @@
 							</ul></li>
 						<li><a href="order.jsp">訂單管理</a></li>
 						<%
-							AccountBean account =(AccountBean) session.getAttribute("login");
-							if(account.getPrivilege()!=0){
+							AccountBean account = (AccountBean) session.getAttribute("login");
+							if (account.getPrivilege() != 0) {
 								out.print("<li><span class='opener'>後台管理</span><ul>");
-								if((account.getPrivilege()&1)!=0)	
-									out.print("<li><a href='commodityAdmin.jsp'>商品管理</a></li>");
-								if((account.getPrivilege()&2)!=0)
+								if ((account.getPrivilege() & 1) != 0)
+									out.print("<li><a href='Commerdity?do=admin'>商品管理</a></li>");
+								if ((account.getPrivilege() & 2) != 0)
 									out.print("<li><a href='orderAdmin.jsp'>訂單管理</a></li>");
-								if((account.getPrivilege()&4)!=0)	
+								if ((account.getPrivilege() & 4) != 0)
 									out.print("<li><a href='memberAdmin.jsp'>會員管理</a></li>");
-								if((account.getPrivilege()&8)!=0)
+								if ((account.getPrivilege() & 8) != 0)
 									out.print("<li><a href='copyrightAdmin.jsp'>頁尾版權管理</a></li>");
-								if((account.getPrivilege()&16)!=0)
+								if ((account.getPrivilege() & 16) != 0)
 									out.print("<li><a href='newsAdmin.jsp'>最新消息管理</a></li>");
 								out.print("</ul></li>");
 							}

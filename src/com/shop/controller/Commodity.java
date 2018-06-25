@@ -7,6 +7,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.shop.service.CommodityService;
+import com.shop.service.UserService;
+
 
 @WebServlet("/Commodity")
 public class Commodity extends HttpServlet {
@@ -17,8 +20,14 @@ public class Commodity extends HttpServlet {
         super();
     }
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+//		String action = req.getParameter("do");
+		CommodityService commodityService = (CommodityService) getServletContext().getAttribute("commodityService");
+		req.getSession().setAttribute("commodity", commodityService.get());
 		
+		
+		
+		resp.sendRedirect("commodityAdmin.jsp");
 	}
 
 	

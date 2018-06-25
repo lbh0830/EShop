@@ -80,7 +80,7 @@
 							if(account.getPrivilege()!=0){
 								out.print("<li><span class='opener'>後台管理</span><ul>");
 								if((account.getPrivilege()&1)!=0)	
-									out.print("<li><a href='commodityAdmin.jsp'>商品管理</a></li>");
+									out.print("<li><a href='Commodity?do=admin'>商品管理</a></li>");
 								if((account.getPrivilege()&2)!=0)
 									out.print("<li><a href='orderAdmin.jsp'>訂單管理</a></li>");
 								if((account.getPrivilege()&4)!=0)	
