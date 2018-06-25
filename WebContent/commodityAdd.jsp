@@ -3,12 +3,12 @@
 <%@ page
 	import="com.shop.model.AccountBean,com.shop.model.CommodityBean,java.util.*"%>
 <%
-	List<CommodityBean> list = (ArrayList<CommodityBean>) session.getAttribute("commodity");
+	CommodityBean cb = new CommodityBean();
 %>
 <!DOCTYPE html>
 <html>
 <head>
-<title>商品管理</title>
+<title>新增商品</title>
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, user-scalable=no" />
 <link rel="stylesheet" href="assets/css/main.css" />
@@ -24,59 +24,60 @@
 
 				<!-- Header -->
 				<header id="header">
-					<strong>首頁>商品管理</strong>
+					<strong>首頁>商品管理>新增商品</strong>
 				</header>
-				
-				
+
+
 				<br> <br>
-				<h3>商品一覽</h3>
-				<div class="col-12">
-					<ul class="actions">
-						<li><a href="Commodity?do=add" class="button small">新增商品</a></li>
-						<li><a href="Commodity?do=update" class="button small">修改商品</a></li>
-						<li><a href="Commodity?do=delete" class="button small">刪除商品</a></li>
-					</ul>
-				</div>
-				<div class="table-wrapper">
-					<%
-						if (list != null) {
-					%>
-					<table class="alt">
-						<thead>
-							<tr>
-								<th>商品編號</th>
-								<th>商品名稱</th>
-								<th>縮圖</th>
-								<th>分類</th>
-								<th>單價</th>
-								<th>數量</th>
-								<th>詳細資訊</th>
-								<th>規格</th>
-							</tr>
-						</thead>
-						<tbody>
-							<%
-								for (CommodityBean comm : list) {
-							%>
-							<tr>
-								<td><%=comm.getId()%></td>
-								<td><%=comm.getName()%></td>
-								<td><%=comm.getImage()%></td>
-								<td><%=comm.getCategory()%></td>
-								<td><%=comm.getPrice()%></td>
-								<td><%=comm.getQuantity()%></td>
-								<td><%=comm.getDetail()%></td>
-								<td><%=comm.getSpec()%></td>
-							</tr>
-							<%
-								}
-								} else {
-									out.print("目前尚無商品");
-								}
-							%>
-						</tbody>
-					</table>
-				</div>
+				<h3>新增商品</h3>
+				<!-- Form -->
+				<form method="post" action="Signup" onsubmit="return check_passwd()">
+					<div class="row gtr-uniform">
+						<div class="col-12 col-12-xsmall">
+							<input type="text" id="name" name="valName" placeholder="商品名稱"
+								required />
+						</div>
+						<div class="col-12 col-12-xsmall">
+							<select name="valCategory" id="">
+								<option value="商品分類">商品分類</option>
+								<option value="配件">配件</option>
+								<option value="鞋款">鞋款</option>
+								<option value="背包">背包</option>
+								<option value="帽子">帽子</option>
+							</select>
+						</div>
+						<div class="col-12 col-12-xsmall">
+							<input type="text" id="" name="valPrice"
+								placeholder="商品單價" required />
+						</div>
+						<div class="col-12 col-12-xsmall">
+							<input type="text" id="" name="valQuantity" placeholder="商品數量"
+								required />
+						</div>
+						<div class="col-12 col-12-xsmall">
+							<div class="col-12">
+								<textarea name="valDetail" id=""
+									placeholder="新增描述" rows="6"></textarea>
+							</div>
+						</div>
+						<div class="col-12 col-12-xsmall">
+							<input type="text" id="" name="valSpec" placeholder="商品規格(顏色,大小等)"
+								required />
+						</div>
+						<div class="col-12 col-12-xsmall">
+							<input type="text" id="" name="valImage" placeholder="圖片檔"
+								required />
+						</div>
+					</div>
+					<br>
+					<div class="col-12">
+						<ul class="actions">
+							<li><input type="submit" value="確認新增" class="primary" /></li>
+							<li><input type="reset" value="清空" /></li>
+						</ul>
+					</div>
+				</form>
+				<!-- Break -->
 			</div>
 		</div>
 
@@ -149,6 +150,14 @@
 	<script src="assets/js/breakpoints.min.js"></script>
 	<script src="assets/js/util.js"></script>
 	<script src="assets/js/main.js"></script>
-
+	<script>
+		function check_passwd(form) {
+			if (pwd.value !== pwdC.value) {
+				alert("密碼與確認密碼不同");
+				return false;
+			} else
+				return true;
+		}
+	</script>
 </body>
 </html>

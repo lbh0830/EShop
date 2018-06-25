@@ -68,7 +68,7 @@
 						<div class="col-12">
 							<ul class="actions">
 								<li><input type="submit" value="完成" class="primary" /></li>
-								<li><a href="member.jsp" class="button small">回上一頁</a></li>
+								<li><a href="member.jsp" class="button">回上一頁</a></li>
 							</ul>
 						</div>
 					</form>

@@ -16,4 +16,10 @@ public class CommodityService {
 	public List<CommodityBean> get() {
 		return iCommodityDAO.getCommodity("id", false);
 	}	
+	
+	public void add(CommodityBean commodity) {
+		
+		
+		
+	}
 }
