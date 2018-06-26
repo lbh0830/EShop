@@ -14,7 +14,7 @@
 <link rel="stylesheet" href="assets/css/main.css" />
 </head>
 <body class="is-preload">
-	<%request.getRequestDispatcher("Commodity?").include(request, response); %>
+	<%request.getRequestDispatcher("Commodity").include(request, response); %>
 	<!-- Wrapper -->
 	<div id="wrapper">
 
@@ -32,8 +32,7 @@
 				<h3>商品一覽</h3>
 				<div class="col-12">
 					<ul class="actions">
-						<li><a href="Commodity?do=add" class="button small">新增商品</a></li>
-						<li><a href="Commodity?do=update" class="button small">修改商品</a></li>
+						<li><a href="commodityAdd.jsp" class="button small">新增商品</a></li>
 						<li><a href="Commodity?do=delete" class="button small">刪除商品</a></li>
 					</ul>
 				</div>
@@ -57,12 +56,13 @@
 						<tbody>
 							<%
 								for (CommodityBean comm : list) {
+									String commHref = "commodityUpdate.jsp?id="+comm.getId();
 							%>
 							<tr>
 								<td style="vertical-align: middle;"><%=comm.getId()%></td>
-								<td style="vertical-align: middle;"><%=comm.getName()%></td>
+								<td style="vertical-align: middle;"><a class="logo" href=<%=commHref %> ><strong> <%=comm.getName()%></strong></a></td>
 								<%String imgPath = "images/"+ comm.getImage();%>
-								<td style="width: 123px;height: 124px;"><a href="#" class="image"><img src=<%=imgPath%> alt="commodityIMG" height="140" /></a></td>
+								<td style="width: 123px;height: 124px;"><a href="<%=commHref %>" class="image"><img src=<%=imgPath%> alt="commodityIMG" height="140" /></a></td>
 								<td style="vertical-align: middle;"><%=comm.getCategory()%></td>
 								<td style="vertical-align: middle;"><%=comm.getPrice()%></td>
 								<td style="vertical-align: middle;"><%=comm.getQuantity()%></td>

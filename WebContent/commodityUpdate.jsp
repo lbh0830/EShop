@@ -4,11 +4,15 @@
 	import="com.shop.model.AccountBean,com.shop.model.CommodityBean,java.util.*"%>
 <%
 	CommodityBean cb = new CommodityBean();
+	for(CommodityBean ele: (ArrayList<CommodityBean>)session.getAttribute("commodity")){
+		if(ele.getId().equals(request.getParameter("id")))
+			cb = ele;
+	}
 %>
 <!DOCTYPE html>
 <html>
 <head>
-<title>新增商品</title>
+<title>修改商品</title>
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, user-scalable=no" />
 <link rel="stylesheet" href="assets/css/main.css" />
@@ -24,54 +28,67 @@
 
 				<!-- Header -->
 				<header id="header">
-					<strong>首頁>商品管理>新增商品</strong>
+					<strong>首頁>商品管理>修改商品</strong>
 				</header>
 
 
 				<br> <br>
-				<h3>新增商品</h3>
+				<h3>修改商品</h3>
 				<!-- Form -->
-				<form method="post" action="CommodityAdd" enctype="multipart/form-data">
+				<form method="post" action="CommodityUpdate" enctype="multipart/form-data">
 					<div class="row gtr-uniform">
 						<div class="col-12 col-12-xsmall">
-							<input type="text" id="name" name="valName" placeholder="商品名稱"
+						<input type="hidden" id="id" name="valId" value=<%=cb.getId() %>
+								 />
+							商品名稱:<input type="text" id="name" name="valName" value=<%=cb.getName() %>
 								required />
 						</div>
 						<div class="col-12 col-12-xsmall">
-							<select name="valCategory" id="">
-								<option value="商品分類">商品分類</option>
-								<option value="配件">配件</option>
-								<option value="鞋款">鞋款</option>
-								<option value="背包">背包</option>
-								<option value="帽子">帽子</option>
+							商品分類:<select name="valCategory" id="">
+							<%
+								String[] selected = {"商品分類","配件","鞋款","背包","帽子"};
+								for(int i=0;i<selected.length;i++){
+									if(selected[i].equals(cb.getCategory()))
+										selected[i] = "selected";
+									else
+										selected[i] = "";
+								}
+							%>
+								<option value="商品分類" <%=selected[0] %>>商品分類</option>
+								<option value="配件" <%=selected[1] %>>配件</option>
+								<option value="鞋款" <%=selected[2] %>>鞋款</option>
+								<option value="背包" <%=selected[3] %>>背包</option>
+								<option value="帽子" <%=selected[4] %>>帽子</option>
 							</select>
 						</div>
 						<div class="col-12 col-12-xsmall">
-							<input type="text" id="" name="valPrice"
-								placeholder="商品單價" required />
+							商品單價:<input type="text" id="" name="valPrice"
+								value=<%=cb.getPrice() %> required />
 						</div>
 						<div class="col-12 col-12-xsmall">
-							<input type="text" id="" name="valQuantity" placeholder="商品數量"
+							商品數量:<input type="text" id="" name="valQuantity" value=<%=cb.getQuantity() %>
 								required />
 						</div>
 						<div class="col-12 col-12-xsmall">
 							<div class="col-12">
-								<textarea name="valDetail" id=""
-									placeholder="新增描述" rows="6"></textarea>
+								商品描述:<textarea name="valDetail" id=""
+									 rows="6"><%=cb.getDetail() %></textarea>
 							</div>
 						</div>
 						<div class="col-12 col-12-xsmall">
-							<input type="text" id="" name="valSpec" placeholder="商品規格(顏色,大小等)"
+							商品規格(顏色,大小):<input type="text" id="" name="valSpec" value=<%=cb.getSpec() %>
 								required />
 						</div>
 						<div class="col-12 col-12-xsmall">
-							<input type="file" id="" name="valImage" required />
+						<%String imgPath = "images/"+cb.getImage(); %>
+							商品圖片(未上傳新檔案則不修改):<input type="file" id="" name="valImage" />
+							<img src=<%=imgPath%> alt="commodityIMG" height="140" />
 						</div>
 					</div>
 					<br>
 					<div class="col-12">
 						<ul class="actions">
-							<li><input type="submit" value="確認新增" class="primary" /></li>
+							<li><input type="submit" value="確認修改" class="primary" /></li>
 							<li><input type="reset" value="清空" /></li>
 						</ul>
 					</div>

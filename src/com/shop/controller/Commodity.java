@@ -30,13 +30,13 @@ public class Commodity extends HttpServlet {
 			session.setAttribute("commodity", commodityService.get());
 			//resp.sendRedirect("commodityAdmin.jsp");
 			break;
-		case "add":
-			req.getRequestDispatcher("commodityAdd.jsp").include(req, resp);
-			
-			break;
-		case "update":
-
-			break;
+//		case "add":
+//			req.getRequestDispatcher("commodityAdd.jsp").include(req, resp);
+//			
+//			break;
+//		case "update":
+//
+//			break;
 		case "delete":
 
 			break;

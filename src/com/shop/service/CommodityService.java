@@ -21,4 +21,8 @@ public class CommodityService {
 		iCommodityDAO.addCommodity(commodity);
 		
 	}
+	
+	public void update(CommodityBean commodity,boolean hasImage) {
+		iCommodityDAO.updateCommodity(commodity, hasImage);
+	}
 }

@@ -6,7 +6,7 @@ import com.shop.model.CommodityBean;
 public interface ICommodityDAO {
 	List<CommodityBean> getCommodity();
 	List<CommodityBean> getCommodity(String sorting, boolean isDESC, String cate);
-	void updateCommodity(CommodityBean commodity);
+	void updateCommodity(CommodityBean commodity, boolean hasImage);
 	void addCommodity(CommodityBean commodity);
 	void deleteCommodity(List<CommodityBean> list);
 }

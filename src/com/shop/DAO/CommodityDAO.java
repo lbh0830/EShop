@@ -15,8 +15,8 @@ import com.shop.model.CommodityBean;
 
 public class CommodityDAO implements ICommodityDAO {
 	private DataSource dataSource;
-	private Connection conn,conn1;
-	private PreparedStatement stmt,stmt1;
+	private Connection conn, conn1;
+	private PreparedStatement stmt, stmt1;
 	private SQLException ex;
 	private ResultSet rs;
 
@@ -53,7 +53,7 @@ public class CommodityDAO implements ICommodityDAO {
 		return list;
 	}
 
-	public List<CommodityBean> getCommodity(String sorting, boolean isDESC, String cate) {		//給MEMBER用的
+	public List<CommodityBean> getCommodity(String sorting, boolean isDESC, String cate) { // 給MEMBER用的
 		List<CommodityBean> list = new ArrayList<CommodityBean>();
 
 		try {
@@ -88,11 +88,20 @@ public class CommodityDAO implements ICommodityDAO {
 	}
 
 	@Override
-	public void updateCommodity(CommodityBean commodity) {
+	public void updateCommodity(CommodityBean commodity, boolean hasImage) {
+
 		try {
 			conn = dataSource.getConnection();
-			stmt = conn.prepareStatement(
-					"UPDATE commodity SET id=?, name=?, category=?, price=?, quantity=?, detail=?, spec=?, image=? WHERE id=?");
+			if (hasImage) {
+				stmt = conn.prepareStatement(
+						"UPDATE commodity SET id=?, name=?, category=?, price=?, quantity=?, detail=?, spec=?, image=? WHERE id=?");
+				stmt.setString(8, commodity.getImage());
+				stmt.setString(9, commodity.getId());
+			} else {
+				stmt = conn.prepareStatement(
+						"UPDATE commodity SET id=?, name=?, category=?, price=?, quantity=?, detail=?, spec=? WHERE id=?");
+				stmt.setString(8, commodity.getId());
+			}
 			stmt.setString(1, commodity.getId());
 			stmt.setString(2, commodity.getName());
 			stmt.setString(3, commodity.getCategory());
@@ -100,8 +109,7 @@ public class CommodityDAO implements ICommodityDAO {
 			stmt.setInt(5, commodity.getQuantity());
 			stmt.setString(6, commodity.getDetail());
 			stmt.setString(7, commodity.getSpec());
-			stmt.setString(8, commodity.getImage());
-			stmt.setString(9, commodity.getId());
+
 			stmt.executeUpdate();
 		} catch (SQLException e) {
 			ex = e;
@@ -159,11 +167,12 @@ public class CommodityDAO implements ICommodityDAO {
 		num = bartDateFormat.format(new Date());
 		try {
 			conn1 = dataSource.getConnection();
-			stmt1 = conn1.prepareStatement("SELECT LPAD(MAX(right(id,3))+1,3,0) AS max FROM commodity WHERE LEFT(id,8)=?");
+			stmt1 = conn1
+					.prepareStatement("SELECT LPAD(MAX(right(id,3))+1,3,0) AS max FROM commodity WHERE LEFT(id,8)=?");
 			stmt1.setString(1, num);
 			rs = stmt1.executeQuery();
 			rs.next();
-			if (rs.getString("max")!=null) {
+			if (rs.getString("max") != null) {
 				num += rs.getString("max");
 			} else {
 				num += "001";

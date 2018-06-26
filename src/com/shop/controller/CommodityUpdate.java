@@ -8,16 +8,16 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.jspsmart.upload.Request;
+
 import com.jspsmart.upload.SmartUpload;
 import com.shop.model.CommodityBean;
 import com.shop.service.CommodityService;
 
-@WebServlet("/CommodityAdd")
-public class CommodityAdd extends HttpServlet {
+@WebServlet("/CommodityUpdate")
+public class CommodityUpdate extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public CommodityAdd() {
+	public CommodityUpdate() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -26,10 +26,12 @@ public class CommodityAdd extends HttpServlet {
 		CommodityService commodityService = (CommodityService) getServletContext().getAttribute("commodityService");
 		CommodityBean cb = new CommodityBean();
 		SmartUpload su = new SmartUpload();
+		boolean hasImage = false;
 		su.initialize(getServletConfig(), req, resp);
 		su.setAllowedFilesList("png,jpg,bmp,gif,PNG,JPG,BMP,GIF");
 		try {
 			su.upload();
+			cb.setId(su.getRequest().getParameter("valId"));
 			cb.setName(su.getRequest().getParameter("valName"));
 			cb.setCategory(su.getRequest().getParameter("valCategory"));
 			cb.setPrice(Integer.parseInt(su.getRequest().getParameter("valPrice")));
@@ -38,25 +40,27 @@ public class CommodityAdd extends HttpServlet {
 			cb.setSpec(su.getRequest().getParameter("valSpec"));
 
 			// su.setDeniedFilesList("exe,jsp,bat,html,,");
-			
-			
-			Long time = new Date().getTime();
-			String ext = su.getFiles().getFile(0).getFileExt();// 获取文件后缀
-			
-			String filename = time + "." + ext;
-			System.out.println(filename);
-			su.getFiles().getFile(0).saveAs("/images/" + filename);
-			cb.setImage(filename);
-			} catch (Exception e) {
+			System.out.println(su.getFiles().getFile(0).isMissing());
+			if (!su.getFiles().getFile(0).isMissing()) {
+				hasImage = true;
+				Long time = new Date().getTime();
+				String ext = su.getFiles().getFile(0).getFileExt();// 获取文件后缀
+				String filename = time + "." + ext;
+				System.out.println(filename);
+				su.getFiles().getFile(0).saveAs("/images/" + filename);
+				cb.setImage(filename);
+			}
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		commodityService.add(cb);
+		commodityService.update(cb, hasImage);
 		resp.sendRedirect("commodityAdmin.jsp?do=admin");
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
+
 }
