@@ -25,36 +25,33 @@ public class CommodityAdd extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		CommodityService commodityService = (CommodityService) getServletContext().getAttribute("commodityService");
 		CommodityBean cb = new CommodityBean();
-		cb.setName(req.getParameter("valName"));
-		cb.setCategory(req.getParameter("valCategory"));
-		cb.setPrice(Integer.parseInt(req.getParameter("valPrice")));
-		cb.setQuantity(Integer.parseInt(req.getParameter("valQuantity")));
-		cb.setDetail(req.getParameter("valDetail"));
-		cb.setSpec(req.getParameter("valSpec"));
 		SmartUpload su = new SmartUpload();
 		su.initialize(getServletConfig(), req, resp);
 		su.setAllowedFilesList("png,jpg,bmp,gif");
-		try {  
-//            su.setDeniedFilesList("exe,jsp,bat,html,,");  
-            su.upload();  
-            Long time=new Date().getTime();  
-            String ext=su.getFiles().getFile(0).getFileExt();//获取文件后缀   
-            String filename=time+"."+ext;  
-            //smart.getFiles().getFile(0).saveAs( "/img/ "+filename);//保存在容器目录下  
-//            String pa=this.getServletContext().getRealPath("/")+"images"+java.io.File.separator+filename;  
-//            System.out.println(pa);  
-              
-            su.getFiles().getFile(0).saveAs("/images"+filename);  
-            //          smart.save("img");  
-//            Request smartReq  =su.getRequest();  
-//            String name=smartReq.getParameter("name");  
-//            resp.getWriter().println(name);  
-        } catch (Exception e) {  
-            e.printStackTrace();  
-        }  
-		cb.setImage("filename");
+		try {
+			su.upload();
+			cb.setName(su.getRequest().getParameter("valName"));
+			cb.setCategory(su.getRequest().getParameter("valCategory"));
+			cb.setPrice(Integer.parseInt(su.getRequest().getParameter("valPrice")));
+			cb.setQuantity(Integer.parseInt(su.getRequest().getParameter("valQuantity")));
+			cb.setDetail(su.getRequest().getParameter("valDetail"));
+			cb.setSpec(su.getRequest().getParameter("valSpec"));
+
+			// su.setDeniedFilesList("exe,jsp,bat,html,,");
+			
+			
+			Long time = new Date().getTime();
+			String ext = su.getFiles().getFile(0).getFileExt();// 获取文件后缀
+			
+			String filename = time + "." + ext;
+			System.out.println(filename);
+			su.getFiles().getFile(0).saveAs("/images/" + filename);
+			cb.setImage(filename);
+			} catch (Exception e) {
+			e.printStackTrace();
+		}
 		commodityService.add(cb);
-		resp.sendRedirect("Commodity?do=admin");
+		resp.sendRedirect("commodityAdmin.jsp?do=admin");
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

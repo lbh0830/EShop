@@ -25,17 +25,12 @@ public class CommodityDAO implements ICommodityDAO {
 	}
 
 	@Override
-	public List<CommodityBean> getCommodity(String sorting, boolean isDESC) {
+	public List<CommodityBean> getCommodity() {
 		List<CommodityBean> list = new ArrayList<CommodityBean>();
 
 		try {
 			conn = dataSource.getConnection();
-			stmt = conn.prepareStatement("SELECT * FROM commodity ORDER BY ? ?");
-			stmt.setString(1, sorting);
-			if (isDESC)
-				stmt.setString(2, "DESC");
-			else
-				stmt.setString(2, "ASC");
+			stmt = conn.prepareStatement("SELECT * FROM commodity");
 			rs = stmt.executeQuery();
 			while (rs.next()) {
 				CommodityBean cb = new CommodityBean();
@@ -167,7 +162,8 @@ public class CommodityDAO implements ICommodityDAO {
 			stmt1 = conn1.prepareStatement("SELECT LPAD(MAX(right(id,3))+1,3,0) AS max FROM commodity WHERE LEFT(id,8)=?");
 			stmt1.setString(1, num);
 			rs = stmt1.executeQuery();
-			if (rs.next()) {
+			rs.next();
+			if (rs.getString("max")!=null) {
 				num += rs.getString("max");
 			} else {
 				num += "001";

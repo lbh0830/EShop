@@ -28,7 +28,7 @@ public class Commodity extends HttpServlet {
 		switch (action) {
 		case "admin":
 			session.setAttribute("commodity", commodityService.get());
-			resp.sendRedirect("commodityAdmin.jsp");
+			//resp.sendRedirect("commodityAdmin.jsp");
 			break;
 		case "add":
 			req.getRequestDispatcher("commodityAdd.jsp").include(req, resp);

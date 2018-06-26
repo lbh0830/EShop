@@ -31,7 +31,7 @@
 				<br> <br>
 				<h3>新增商品</h3>
 				<!-- Form -->
-				<form method="post" action="CommodityAdd" onsubmit="return check_passwd()">
+				<form method="post" action="CommodityAdd" onsubmit="return check_passwd()" enctype="multipart/form-data">
 					<div class="row gtr-uniform">
 						<div class="col-12 col-12-xsmall">
 							<input type="text" id="name" name="valName" placeholder="商品名稱"

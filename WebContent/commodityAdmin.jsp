@@ -14,7 +14,7 @@
 <link rel="stylesheet" href="assets/css/main.css" />
 </head>
 <body class="is-preload">
-
+	<%request.getRequestDispatcher("Commodity?").include(request, response); %>
 	<!-- Wrapper -->
 	<div id="wrapper">
 
@@ -59,12 +59,13 @@
 								for (CommodityBean comm : list) {
 							%>
 							<tr>
-								<td><%=comm.getId()%></td>
-								<td><%=comm.getName()%></td>
-								<td><%=comm.getImage()%></td>
-								<td><%=comm.getCategory()%></td>
-								<td><%=comm.getPrice()%></td>
-								<td><%=comm.getQuantity()%></td>
+								<td style="vertical-align: middle;"><%=comm.getId()%></td>
+								<td style="vertical-align: middle;"><%=comm.getName()%></td>
+								<%String imgPath = "images/"+ comm.getImage();%>
+								<td style="width: 123px;height: 124px;"><a href="#" class="image"><img src=<%=imgPath%> alt="commodityIMG" height="140" /></a></td>
+								<td style="vertical-align: middle;"><%=comm.getCategory()%></td>
+								<td style="vertical-align: middle;"><%=comm.getPrice()%></td>
+								<td style="vertical-align: middle;"><%=comm.getQuantity()%></td>
 								<%
 								String str;
 								if(comm.getDetail().length()>12) 
@@ -72,8 +73,8 @@
 								else
 									 str = comm.getDetail();
 								%>
-								<td><%=str%></td>
-								<td><%=comm.getSpec()%></td>
+								<td style="vertical-align: middle;"><%=str%></td>
+								<td style="vertical-align: middle;"><%=comm.getSpec()%></td>
 							</tr>
 							<%
 								}
