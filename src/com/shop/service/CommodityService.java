@@ -25,4 +25,8 @@ public class CommodityService {
 	public void update(CommodityBean commodity,boolean hasImage) {
 		iCommodityDAO.updateCommodity(commodity, hasImage);
 	}
+	
+	public void delete(String id) {
+		iCommodityDAO.deleteCommodity(id);
+	}
 }

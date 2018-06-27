@@ -120,17 +120,12 @@ public class CommodityDAO implements ICommodityDAO {
 	}
 
 	@Override
-	public void deleteCommodity(List<CommodityBean> list) {
-		ArrayList<CommodityBean> alist = (ArrayList<CommodityBean>) list;
-
+	public void deleteCommodity(String id) {
 		try {
 			conn = dataSource.getConnection();
-
 			stmt = conn.prepareStatement("DELETE FROM commodity WHERE id=?");
-			for (CommodityBean commodity : alist) {
-				stmt.setString(1, commodity.getId());
-				stmt.executeUpdate();
-			}
+			stmt.setString(1, id);
+			stmt.executeUpdate();
 		} catch (SQLException e) {
 			ex = e;
 		} finally {

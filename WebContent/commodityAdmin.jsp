@@ -8,10 +8,12 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <title>商品管理</title>
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, user-scalable=no" />
 <link rel="stylesheet" href="assets/css/main.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body class="is-preload">
 	<%request.getRequestDispatcher("Commodity").include(request, response); %>
@@ -33,7 +35,6 @@
 				<div class="col-12">
 					<ul class="actions">
 						<li><a href="commodityAdd.jsp" class="button small">新增商品</a></li>
-						<li><a href="Commodity?do=delete" class="button small">刪除商品</a></li>
 					</ul>
 				</div>
 				<div class="table-wrapper">
@@ -43,26 +44,29 @@
 					<table class="alt">
 						<thead>
 							<tr>
-								<th class="sort"><a class="logo" href="#"><strong>商品編號</strong></a></th>
-								<th class="sort"><a class="logo" href="#"><strong>商品名稱</strong></a></th>
+								<th></th>
+								<th class="sort"><a class="logo" href="javascript: void(0)"><strong>商品編號</strong></a></th>
+								<th class="sort"><a class="logo" href="javascript: void(0)"><strong>商品名稱</strong></a></th>
 								<th><strong>縮圖</strong></th>
 								<th><strong>分類</strong></th>
-								<th class="sort"><a class="logo" href="#"><strong>單價</strong></a></th>
-								<th class="sort"><a class="logo" href="#"><strong>數量</strong></a></th>
+								<th class="sort"><a class="logo" href="javascript: void(0)"><strong>單價</strong></a></th>
+								<th class="sort"><a class="logo" href="javascript: void(0)"><strong>數量</strong></a></th>
 								<th><strong>詳細資訊</strong></th>
-								<th class="sort"><a class="logo" href="#"><strong>規格</strong></a></th>
+								<th class="sort"><a class="logo" href="javascript: void(0)"><strong>規格</strong></a></th>
 							</tr>
 						</thead>
 						<tbody>
 							<%
 								for (CommodityBean comm : list) {
 									String commHref = "commodityUpdate.jsp?id="+comm.getId();
+									String commHrefForDel = "CommodityDelete?id="+comm.getId();
 							%>
 							<tr>
+								<td style="vertical-align: middle;"><a href='' onclick="deleteItem('<%=commHrefForDel%>')"><i class="fa fa-trash"></i></a></td>
 								<td style="vertical-align: middle;"><%=comm.getId()%></td>
 								<td style="vertical-align: middle;"><a class="logo" href=<%=commHref %> ><strong> <%=comm.getName()%></strong></a></td>
 								<%String imgPath = "images/"+ comm.getImage();%>
-								<td style="width: 123px;height: 124px;"><a href="<%=commHref %>" class="image"><img src=<%=imgPath%> alt="commodityIMG" height="140" /></a></td>
+								<td style="width: 123px;height: 124px;"><a href="<%=commHref %>" class="image"><img src=<%=imgPath%> alt="commodityIMG" height="100" /></a></td>
 								<td style="vertical-align: middle;"><%=comm.getCategory()%></td>
 								<td style="vertical-align: middle;"><%=comm.getPrice()%></td>
 								<td style="vertical-align: middle;"><%=comm.getQuantity()%></td>
@@ -73,7 +77,7 @@
 								else
 									 str = comm.getDetail();
 								%>
-								<td style="vertical-align: middle;"><%=str%></td>
+								<td style="vertical-align: middle;width: 100px;"><%=str%></td>
 								<td style="vertical-align: middle;"><%=comm.getSpec()%></td>
 							</tr>
 							<%
@@ -177,6 +181,12 @@
 		}
 		function getCellValue(row, index) {
 			return $(row).children('td').eq(index).text();
+		}
+		function deleteItem(id){
+			var r = confirm("你確定要刪除這筆資料");
+			if(r){
+				location.href = "www.google.com";
+			}
 		}
 	</script>
 </body>
