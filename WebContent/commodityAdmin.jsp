@@ -16,7 +16,6 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body class="is-preload">
-	<%request.getRequestDispatcher("Commodity").include(request, response); %>
 	<!-- Wrapper -->
 	<div id="wrapper">
 
@@ -62,7 +61,7 @@
 									String commHrefForDel = "CommodityDelete?id="+comm.getId();
 							%>
 							<tr>
-								<td style="vertical-align: middle;"><a href='' onclick="deleteItem('<%=commHrefForDel%>')"><i class="fa fa-trash"></i></a></td>
+								<td style="vertical-align: middle;"><a href="javascript: deleteItem('<%=commHrefForDel%>')"><i class="fa fa-trash"></i></a></td>
 								<td style="vertical-align: middle;"><%=comm.getId()%></td>
 								<td style="vertical-align: middle;"><a class="logo" href=<%=commHref %> ><strong> <%=comm.getName()%></strong></a></td>
 								<%String imgPath = "images/"+ comm.getImage();%>
@@ -130,7 +129,7 @@
 							if (account.getPrivilege() != 0) {
 								out.print("<li><span class='opener'>後台管理</span><ul>");
 								if ((account.getPrivilege() & 1) != 0)
-									out.print("<li><a href='Commerdity?do=admin'>商品管理</a></li>");
+									out.print("<li><a href='Commerdity'>商品管理</a></li>");
 								if ((account.getPrivilege() & 2) != 0)
 									out.print("<li><a href='orderAdmin.jsp'>訂單管理</a></li>");
 								if ((account.getPrivilege() & 4) != 0)
@@ -185,7 +184,7 @@
 		function deleteItem(id){
 			var r = confirm("你確定要刪除這筆資料");
 			if(r){
-				location.href = "www.google.com";
+				window.location.replace(id);
 			}
 		}
 	</script>

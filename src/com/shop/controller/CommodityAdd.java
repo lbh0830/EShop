@@ -51,7 +51,7 @@ public class CommodityAdd extends HttpServlet {
 			e.printStackTrace();
 		}
 		commodityService.add(cb);
-		resp.sendRedirect("commodityAdmin.jsp?do=admin");
+		resp.sendRedirect("Commodity");
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

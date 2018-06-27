@@ -27,7 +27,7 @@ public class CommodityDelete extends HttpServlet {
 		SmartUpload su = new SmartUpload();
 		String id = req.getParameter("id");
 		commodityService.delete(id);
-		resp.sendRedirect("commodityAdmin.jsp?do=admin");
+		resp.sendRedirect("Commodity");
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

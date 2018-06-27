@@ -22,28 +22,10 @@ public class Commodity extends HttpServlet {
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		resp.setContentType("text/html;charset=utf-8");
-		String action = req.getParameter("do");
 		CommodityService commodityService = (CommodityService) getServletContext().getAttribute("commodityService");
 		HttpSession session = req.getSession();
-		switch (action) {
-		case "admin":
-			session.setAttribute("commodity", commodityService.get());
-			//resp.sendRedirect("commodityAdmin.jsp");
-			break;
-//		case "add":
-//			req.getRequestDispatcher("commodityAdd.jsp").include(req, resp);
-//			
-//			break;
-//		case "update":
-//
-//			break;
-		case "delete":
-
-			break;
-		default:
-			break;
-		}
-
+		session.setAttribute("commodity", commodityService.get());
+		req.getRequestDispatcher("commodityAdmin.jsp").forward(req, resp);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
