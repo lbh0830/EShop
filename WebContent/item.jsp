@@ -1,12 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ page import="com.shop.model.AccountBean" %>
+	pageEncoding="UTF-8"%>
+<%@ page
+	import="com.shop.model.AccountBean,com.shop.model.CommodityBean,java.util.*"%>
+<%
+	List<CommodityBean> list = (ArrayList<CommodityBean>) session.getAttribute("commodity");
+%>
+
 <!DOCTYPE html>
 <html>
 <head>
-<title>E-Shop</title>
+<title><%=request.getParameter("item")%></title>
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet" href="assets/css/main.css" />
 </head>
 <body class="is-preload">
@@ -20,24 +27,29 @@
 
 				<!-- Header -->
 				<header id="header">
-					<a href="index.jsp" class="logo"><strong>首頁</strong></a>
+					<strong>首頁>商品分類><%=request.getParameter("item")%></strong>
 				</header>
 
-				<!-- Banner -->
-				<section id="banner">
-					<div class="content">
-						<header>
-							<h1>Title</h1>
-						</header>
-						<p>在這裡扯一些五四三</p>
-						<ul class="actions">
-							<li><a href="#" class="button big">開始購物</a></li>
-						</ul>
-					</div>
-					<span class="image object"> <img src="images/HomePic.png"
-						alt="購物圖" />
-					</span>
-				</section>
+				<button type="button" class="btn btn-default btn-sm">
+					<span class="glyphicon glyphicon-arrow-up"></span> Up
+				</button>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 			</div>
 		</div>
 
@@ -60,7 +72,7 @@
 					<ul>
 						<li><a href="index.jsp">回首頁</a></li>
 						<%
-							if(session.getAttribute("login")==null)
+							if (session.getAttribute("login") == null)
 								out.print("<li><a href='login.jsp'>登入</a> <a href='signup.jsp'>註冊會員</a></li>");
 							else
 								out.print("<li><a href='logout.jsp'>登出</a> <a href='member.jsp'>會員管理</a></li>");
@@ -75,23 +87,23 @@
 							</ul></li>
 						<li><a href="order.jsp">訂單管理</a></li>
 						<%
-						if(session.getAttribute("login")!=null){
-							AccountBean account =(AccountBean) session.getAttribute("login");
-							if(account.getPrivilege()!=0){
-								out.print("<li><span class='opener'>後台管理</span><ul>");
-								if((account.getPrivilege()&1)!=0)	
-									out.print("<li><a href='Commodity?account=admin'>商品管理</a></li>");
-								if((account.getPrivilege()&2)!=0)
-									out.print("<li><a href='orderAdmin.jsp'>訂單管理</a></li>");
-								if((account.getPrivilege()&4)!=0)	
-									out.print("<li><a href='memberAdmin.jsp'>會員管理</a></li>");
-								if((account.getPrivilege()&8)!=0)
-									out.print("<li><a href='copyrightAdmin.jsp'>頁尾版權管理</a></li>");
-								if((account.getPrivilege()&16)!=0)
-									out.print("<li><a href='newsAdmin.jsp'>最新消息管理</a></li>");
-								out.print("</ul></li>");
+							if (session.getAttribute("login") != null) {
+								AccountBean account = (AccountBean) session.getAttribute("login");
+								if (account.getPrivilege() != 0) {
+									out.print("<li><span class='opener'>後台管理</span><ul>");
+									if ((account.getPrivilege() & 1) != 0)
+										out.print("<li><a href='Commodity?account=admin'>商品管理</a></li>");
+									if ((account.getPrivilege() & 2) != 0)
+										out.print("<li><a href='orderAdmin.jsp'>訂單管理</a></li>");
+									if ((account.getPrivilege() & 4) != 0)
+										out.print("<li><a href='memberAdmin.jsp'>會員管理</a></li>");
+									if ((account.getPrivilege() & 8) != 0)
+										out.print("<li><a href='copyrightAdmin.jsp'>頁尾版權管理</a></li>");
+									if ((account.getPrivilege() & 16) != 0)
+										out.print("<li><a href='newsAdmin.jsp'>最新消息管理</a></li>");
+									out.print("</ul></li>");
+								}
 							}
-						}
 						%>
 					</ul>
 				</nav>

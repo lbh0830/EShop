@@ -24,8 +24,23 @@ public class Commodity extends HttpServlet {
 		resp.setContentType("text/html;charset=utf-8");
 		CommodityService commodityService = (CommodityService) getServletContext().getAttribute("commodityService");
 		HttpSession session = req.getSession();
-		session.setAttribute("commodity", commodityService.get());
-		req.getRequestDispatcher("commodityAdmin.jsp").forward(req, resp);
+		
+		if(req.getParameter("account").equals("admin")) {
+			session.setAttribute("commodity", commodityService.get());
+			req.getRequestDispatcher("commodityAdmin.jsp").forward(req, resp);
+		}
+		else if(req.getParameter("account").equals("member")) {
+			session.setAttribute("commodity", commodityService.get("id",false,req.getParameter("item")));
+//			if(req.getParameter("item").equals("accessories"))
+//				session.setAttribute("commodity", commodityService.get("id",false,"配件"));
+//			else if(req.getParameter("item").equals("shoes"))
+//				session.setAttribute("commodity", commodityService.get("id",false,"配件"));
+//			else if(req.getParameter("item").equals("backpacks"))
+//				session.setAttribute("commodity", commodityService.get("id",false,"配件"));
+//			else if(req.getParameter("item").equals("hats"))
+//				session.setAttribute("commodity", commodityService.get("id",false,"配件"));
+			req.getRequestDispatcher("item.jsp").forward(req, resp);
+		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
