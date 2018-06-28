@@ -29,7 +29,7 @@
 				<header id="header">
 					<strong>首頁>商品分類><%=request.getParameter("item")%></strong>
 				</header>
-
+				
 				<button type="button" class="btn btn-default btn-sm">
 					<span class="glyphicon glyphicon-arrow-up"></span> Up
 				</button>
