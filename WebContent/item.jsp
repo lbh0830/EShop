@@ -29,27 +29,57 @@
 				<header id="header">
 					<strong>首頁>商品分類><%=request.getParameter("item")%></strong>
 				</header>
-				
-				<button type="button" class="btn btn-default btn-sm">
-					<span class="glyphicon glyphicon-arrow-up"></span> Up
-				</button>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+				<br>
+				<div class="table-wrapper">
+					<%
+						if (list != null) {
+					%>
+					<table class="alt">
+						<thead>
+							<tr>
+								<th class="sort"><a class="logo" href="javascript: void(0)"><strong>商品名稱</strong></a></th>
+								<th><strong>縮圖</strong></th>
+								<th><strong>分類</strong></th>
+								<th class="sort"><a class="logo" href="javascript: void(0)"><strong>單價</strong></a></th>
+								<th><strong>詳細資訊</strong></th>
+								<th class="sort"><a class="logo" href="javascript: void(0)"><strong>規格</strong></a></th>
+							</tr>
+						</thead>
+						<tbody>
+							<%
+								for (CommodityBean comm : list) {
+										String commHref = "itemDetail.jsp?id=" + comm.getId();
+							%>
+							<tr>
+								<td style="vertical-align: middle;" width="120"><a class="logo"
+									href=<%=commHref%>><strong> <%=comm.getName()%></strong></a></td>
+								<%
+									String imgPath = "images/" + comm.getImage();
+								%>
+								<td style="width: 123px; height: 124px;"><a
+									href="<%=commHref%>" class="image"><img src=<%=imgPath%>
+										alt="commodityIMG" height="100" /></a></td>
+								<td style="vertical-align: middle;" width="70"><%=comm.getCategory()%></td>
+								<td style="vertical-align: middle;" width="50"><%=comm.getPrice()%></td>
+								<%
+									String str;
+											if (comm.getDetail().length() > 20)
+												str = comm.getDetail().substring(0, 20) + "...";
+											else
+												str = comm.getDetail();
+								%>
+								<td style="vertical-align: middle; width: 200px;" width="300"><%=str%></td>
+								<td style="vertical-align: middle;" width="70"><%=comm.getSpec()%></td>
+							</tr>
+							<%
+								}
+								} else {
+									out.print("目前尚無商品");
+								}
+							%>
+						</tbody>
+					</table>
+				</div>
 			</div>
 		</div>
 
@@ -124,6 +154,36 @@
 	<script src="assets/js/breakpoints.min.js"></script>
 	<script src="assets/js/util.js"></script>
 	<script src="assets/js/main.js"></script>
-
+	<script>
+		$(document).on(
+				'click',
+				'th.sort',
+				function() {
+					var table = $(this).parents('table').eq(0);
+					var rows = table.find('tr:gt(0)').toArray().sort(
+							comparer($(this).index()));
+					this.asc = !this.asc;
+					if (!this.asc) {
+						rows = rows.reverse();
+					}
+					table.children('tbody').empty().html(rows);
+				});
+		function comparer(index) {
+			return function(a, b) {
+				var valA = getCellValue(a, index), valB = getCellValue(b, index);
+				return $.isNumeric(valA) && $.isNumeric(valB) ? valA - valB
+						: valA.localeCompare(valB);
+			};
+		}
+		function getCellValue(row, index) {
+			return $(row).children('td').eq(index).text();
+		}
+		function deleteItem(id) {
+			var r = confirm("你確定要刪除這筆資料");
+			if (r) {
+				window.location.replace(id);
+			}
+		}
+	</script>
 </body>
 </html>

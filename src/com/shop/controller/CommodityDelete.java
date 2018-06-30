@@ -23,8 +23,6 @@ public class CommodityDelete extends HttpServlet {
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		CommodityService commodityService = (CommodityService) getServletContext().getAttribute("commodityService");
-		CommodityBean cb = new CommodityBean();
-		SmartUpload su = new SmartUpload();
 		String id = req.getParameter("id");
 		commodityService.delete(id);
 		resp.sendRedirect("Commodity");

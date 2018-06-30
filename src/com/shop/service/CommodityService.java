@@ -17,13 +17,12 @@ public class CommodityService {
 		return iCommodityDAO.getCommodity();
 	}
 
-	public List<CommodityBean> get(String sorting, boolean isDESC, String cate) {
-		return iCommodityDAO.getCommodity(sorting, isDESC, cate);
+	public List<CommodityBean> get(String cate) {
+		return iCommodityDAO.getCommodity(cate);
 	}
-
+	
 	public void add(CommodityBean commodity) {
 		iCommodityDAO.addCommodity(commodity);
-
 	}
 
 	public void update(CommodityBean commodity, boolean hasImage) {

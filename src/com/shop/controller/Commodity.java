@@ -30,15 +30,7 @@ public class Commodity extends HttpServlet {
 			req.getRequestDispatcher("commodityAdmin.jsp").forward(req, resp);
 		}
 		else if(req.getParameter("account").equals("member")) {
-			session.setAttribute("commodity", commodityService.get("id",false,req.getParameter("item")));
-//			if(req.getParameter("item").equals("accessories"))
-//				session.setAttribute("commodity", commodityService.get("id",false,"配件"));
-//			else if(req.getParameter("item").equals("shoes"))
-//				session.setAttribute("commodity", commodityService.get("id",false,"配件"));
-//			else if(req.getParameter("item").equals("backpacks"))
-//				session.setAttribute("commodity", commodityService.get("id",false,"配件"));
-//			else if(req.getParameter("item").equals("hats"))
-//				session.setAttribute("commodity", commodityService.get("id",false,"配件"));
+			session.setAttribute("commodity", commodityService.get(req.getParameter("item")));
 			req.getRequestDispatcher("item.jsp").forward(req, resp);
 		}
 	}

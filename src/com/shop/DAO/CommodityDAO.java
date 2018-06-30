@@ -53,18 +53,13 @@ public class CommodityDAO implements ICommodityDAO {
 		return list;
 	}
 
-	public List<CommodityBean> getCommodity(String sorting, boolean isDESC, String cate) { // 給MEMBER用的
+	public List<CommodityBean> getCommodity(String cate) { // 給MEMBER用的
 		List<CommodityBean> list = new ArrayList<CommodityBean>();
 
 		try {
 			conn = dataSource.getConnection();
-			stmt = conn.prepareStatement("SELECT * FROM commodity WHERE category=? ORDER BY ? ?");
+			stmt = conn.prepareStatement("SELECT * FROM commodity WHERE category=?");
 			stmt.setString(1, cate);
-			stmt.setString(2, sorting);
-			if (isDESC)
-				stmt.setString(3, "DESC");
-			else
-				stmt.setString(3, "ASC");
 			rs = stmt.executeQuery();
 			while (rs.next()) {
 				CommodityBean cb = new CommodityBean();

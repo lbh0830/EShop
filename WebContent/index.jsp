@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="com.shop.model.AccountBean" %>
+<%@ page import="com.shop.model.*,java.util.*" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -65,7 +65,13 @@
 							else
 								out.print("<li><a href='logout.jsp'>登出</a> <a href='member.jsp'>會員管理</a></li>");
 						%>
-						<li><a href="cart.jsp">購物車</a></li>
+						<%
+							int cartNum = 0;
+							ArrayList<CommodityBean> cartList = (ArrayList<CommodityBean>) session.getAttribute("cart");
+							if(session.getAttribute("cart")!=null)
+								cartNum = cartList.size();
+						%>
+						<li><a href="cart.jsp">購物車(<%=cartNum %>)</a></li>
 						<li><span class="opener">商品分類</span>
 							<ul>
 								<li><a href="Commodity?item=配件&account=member">配件</a></li>
