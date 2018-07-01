@@ -21,6 +21,9 @@ public class CommodityService {
 		return iCommodityDAO.getCommodity(cate);
 	}
 	
+	public void getById(CommodityBean commodity,String id) {
+		iCommodityDAO.getCommodityById(commodity, id);
+	}
 	public void add(CommodityBean commodity) {
 		iCommodityDAO.addCommodity(commodity);
 	}

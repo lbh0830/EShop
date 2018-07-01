@@ -42,7 +42,7 @@ public class CartAdd extends HttpServlet {
 			list = (ArrayList) request.getSession().getAttribute("cart");
 		list.add(cb);
 		request.getSession().setAttribute("cart", list);
-		response.sendRedirect("itemDetail.jsp");
+		response.sendRedirect("itemDetail.jsp?id="+request.getParameter("valId"));
 
 	}
 

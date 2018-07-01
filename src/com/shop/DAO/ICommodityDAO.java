@@ -9,4 +9,5 @@ public interface ICommodityDAO {
 	void updateCommodity(CommodityBean commodity, boolean hasImage);
 	void addCommodity(CommodityBean commodity);
 	void deleteCommodity(String id);
+	void getCommodityById(CommodityBean cb,String id);
 }

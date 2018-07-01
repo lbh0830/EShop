@@ -25,6 +25,33 @@ public class CommodityDAO implements ICommodityDAO {
 	}
 
 	@Override
+	public void getCommodityById(CommodityBean cb,String id) {
+		try {
+			conn = dataSource.getConnection();
+			stmt = conn.prepareStatement("SELECT * FROM commodity WHERE id=?");
+			stmt.setString(1, id);
+			rs = stmt.executeQuery();
+			while (rs.next()) {
+				cb.setId(rs.getString("id"));
+				cb.setName(rs.getString("name"));
+				cb.setCategory(rs.getString("category"));
+				cb.setPrice(rs.getInt("price"));
+				cb.setQuantity(rs.getInt("quantity"));
+				cb.setDetail(rs.getString("detail"));
+				cb.setSpec(rs.getString("spec"));
+				cb.setImage(rs.getString("image"));
+			}
+		} catch (SQLException e) {
+			ex = e;
+		} finally {
+			closeConnect();
+		}
+
+	
+
+	}
+
+	@Override
 	public List<CommodityBean> getCommodity() {
 		List<CommodityBean> list = new ArrayList<CommodityBean>();
 
