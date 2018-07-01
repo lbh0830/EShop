@@ -1,10 +1,8 @@
-CREATE DATABASE  IF NOT EXISTS `shop` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `shop`;
--- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.22, for Win64 (x86_64)
 --
 -- Host: localhost    Database: shop
 -- ------------------------------------------------------
--- Server version	5.7.21-log
+-- Server version	5.7.22-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -25,7 +23,7 @@ DROP TABLE IF EXISTS `commodity`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `commodity` (
-  `id` varchar(45) COLLATE utf8mb4_bin NOT NULL,
+  `id` varchar(20) COLLATE utf8mb4_bin NOT NULL,
   `name` varchar(80) COLLATE utf8mb4_bin NOT NULL,
   `category` varchar(40) COLLATE utf8mb4_bin NOT NULL,
   `price` int(11) NOT NULL,
@@ -43,7 +41,7 @@ CREATE TABLE `commodity` (
 
 LOCK TABLES `commodity` WRITE;
 /*!40000 ALTER TABLE `commodity` DISABLE KEYS */;
-INSERT INTO `commodity` VALUES ('20180625001','鉛筆盒','配件',70,10,'精美的鉛筆盒，買到賺到哦!!!','黑','1529993011308.jpg'),('20180626001','禹丞的雙下巴','配件',50,1,'全球限量，僅此一件。偽裝肥宅必備武器，錯過了就買不到囉!! 快叫把拔買給你','一組兩件','1529993983176.jpg'),('20180626002','天線寶寶','配件',40,4,'一隻40，整組帶走算你200','紅綠黃紫','1529994751564.jpg');
+INSERT INTO `commodity` VALUES ('20180625001','鉛筆盒','配件',70,10,'精美的鉛筆盒，買到賺到哦!!!','黑','1530034371632.JPG'),('20180626003','樂譜','配件',33,3,'吉他譜','A4','1530022831566.png'),('20180626004','正常點','帽子',10,1000,'詳細資訊','規格','1530034331226.JPG');
 /*!40000 ALTER TABLE `commodity` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -77,6 +75,60 @@ LOCK TABLES `member` WRITE;
 INSERT INTO `member` VALUES (1,'root','123456','12007','internet','12007','rootroot@12007',31),(2,'test','654321','Henry','台北101101樓','0911333999','rrr@yahoo.mail.com',0);
 /*!40000 ALTER TABLE `member` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `orderext`
+--
+
+DROP TABLE IF EXISTS `orderext`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `orderext` (
+  `id` varchar(15) COLLATE utf8mb4_bin NOT NULL,
+  `commodity_id` varchar(20) COLLATE utf8mb4_bin DEFAULT NULL,
+  `price` int(11) DEFAULT NULL,
+  `buyquantity` int(11) DEFAULT NULL,
+  `note` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `orderext`
+--
+
+LOCK TABLES `orderext` WRITE;
+/*!40000 ALTER TABLE `orderext` DISABLE KEYS */;
+/*!40000 ALTER TABLE `orderext` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `ordermain`
+--
+
+DROP TABLE IF EXISTS `ordermain`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ordermain` (
+  `id` varchar(15) COLLATE utf8mb4_bin NOT NULL,
+  `mem_id` int(11) DEFAULT NULL,
+  `date` varchar(14) COLLATE utf8mb4_bin DEFAULT NULL,
+  `receiver` varchar(20) COLLATE utf8mb4_bin DEFAULT NULL,
+  `addr` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL,
+  `tel` varchar(13) COLLATE utf8mb4_bin DEFAULT NULL,
+  `process` varchar(45) COLLATE utf8mb4_bin DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `ordermain`
+--
+
+LOCK TABLES `ordermain` WRITE;
+/*!40000 ALTER TABLE `ordermain` DISABLE KEYS */;
+/*!40000 ALTER TABLE `ordermain` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -87,4 +139,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-06-26 15:20:18
+-- Dump completed on 2018-07-01 22:00:29
