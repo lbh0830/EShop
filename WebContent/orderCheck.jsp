@@ -86,7 +86,7 @@
 					</table>
 				</div>
 				<div class="total"></div>
-				<form method="post" action="Login">
+				<form method="post" action="OrderAdd">
 					<div>
 						<h3>請填寫收件人資訊:</h3>
 					</div>

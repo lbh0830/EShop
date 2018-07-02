@@ -15,6 +15,8 @@ import com.shop.model.AccountBean;
 import com.shop.model.CommodityBean;
 import com.shop.model.OrderExtBean;
 import com.shop.model.OrderMainBean;
+import com.shop.service.CommodityService;
+import com.shop.service.OrderService;
 
 
 @WebServlet("/OrderAdd")
@@ -31,29 +33,32 @@ public class OrderAdd extends HttpServlet {
 		AccountBean account = (AccountBean)req.getSession().getAttribute("login");
 		OrderMainBean omb = new OrderMainBean();
 		OrderExtBean[] oeb = new OrderExtBean[list.size()];
+		System.out.println(list.size());
+		OrderService orderService = (OrderService) getServletContext().getAttribute("orderService");
 		//---抓當前時間
 		String date;
 		SimpleDateFormat bartDateFormat = new SimpleDateFormat("yyyyMMdd");	
 		date = bartDateFormat.format(new Date());
 		//
-		omb.setAddr(req.getParameter("varAddr"));
+		omb.setAddr(req.getParameter("valAddr"));
 		omb.setDate(date);
-		omb.setId("A"+date);			//A20180702 還缺單號
+//		omb.setId("A"+date);			
 		omb.setMemId(Integer.toString(account.getUid()));
 		omb.setNote(req.getParameter("valNote"));
 		omb.setProcess("出貨準備中");
-		omb.setReceiver(req.getParameter("varReceiver"));
+		omb.setReceiver(req.getParameter("valReceiver"));
 		omb.setTel(req.getParameter("valTel"));
 		int i = 0;
 		for(CommodityBean cb: list) {
+			oeb[i] = new OrderExtBean();
 			oeb[i].setBuyquantity(cb.getQuantity());
 			oeb[i].setCommodityId(cb.getId());
-			oeb[i].setId("A"+date);		//一樣缺單號 記得在DAO補
+//			oeb[i].setId("A"+date);		
 			oeb[i].setPrice(cb.getPrice());			
 			i++;
 		}
 		omb.setExt(oeb);
-		
+		orderService.addOrder(omb);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

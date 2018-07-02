@@ -1,6 +1,7 @@
 package com.shop.service;
 
 import com.shop.DAO.IOrderDAO;
+import com.shop.model.OrderMainBean;
 
 public class OrderService {
 	IOrderDAO iOrderDAO;
@@ -9,7 +10,9 @@ public class OrderService {
 		this.iOrderDAO = order;
 	}
 	
-	public void 
+	public void addOrder(OrderMainBean omb) {
+		iOrderDAO.addOrderMain(omb);
+	}
 	
 	
 }
