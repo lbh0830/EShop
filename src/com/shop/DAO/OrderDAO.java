@@ -5,10 +5,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.sql.DataSource;
 
+import com.shop.model.AccountBean;
+import com.shop.model.CommodityBean;
+import com.shop.model.OrderExtBean;
 import com.shop.model.OrderMainBean;
 
 public class OrderDAO implements IOrderDAO {
@@ -17,16 +22,17 @@ public class OrderDAO implements IOrderDAO {
 	private PreparedStatement stmt, stmt1;
 	private SQLException ex;
 	private ResultSet rs;
+
 	public OrderDAO(DataSource defaultDS) {
 		this.dataSource = defaultDS;
 	}
-	
+
 	@Override
 	public void addOrderMain(OrderMainBean omb) {
 		omb.setId(todayNum());
 		try {
 			conn = dataSource.getConnection();
-			//主檔
+			// 主檔
 			stmt = conn.prepareStatement(
 					"INSERT INTO ordermain(id,mem_id,date,receiver,addr,tel,process,note) VALUES(?,?,?,?,?,?,?,?)");
 			stmt.setString(1, omb.getId());
@@ -38,13 +44,13 @@ public class OrderDAO implements IOrderDAO {
 			stmt.setString(7, omb.getProcess());
 			stmt.setString(8, omb.getNote());
 			stmt.executeUpdate();
-			//副檔
+			// 副檔
 			stmt = conn.prepareStatement("INSERT INTO orderext(id,commodity_id,price,buyquantity) VALUES(?,?,?,?)");
-			for(int i=0;i<omb.getExt().length;i++) {
+			for (int i = 0; i < omb.getExt().length; i++) {
 				stmt.setString(1, omb.getId());
 				stmt.setString(2, omb.getExt()[i].getCommodityId());
 				stmt.setInt(3, omb.getExt()[i].getPrice());
-				stmt.setInt(4, omb.getExt()[i].getBuyquantity());	
+				stmt.setInt(4, omb.getExt()[i].getBuyquantity());
 				stmt.executeUpdate();
 			}
 		} catch (SQLException e) {
@@ -57,9 +63,88 @@ public class OrderDAO implements IOrderDAO {
 
 	@Override
 	public void updateProcess(OrderMainBean omb) {
-		
 
 	}
+
+	@Override
+	public List<OrderMainBean> getOrderMain(AccountBean account) {
+		List<OrderMainBean> list = new ArrayList<OrderMainBean>();
+		try {
+			conn = dataSource.getConnection();
+			stmt = conn.prepareStatement("SELECT * FROM ordermain WHERE mem_id=?");
+			stmt.setInt(1, account.getUid());
+			rs = stmt.executeQuery();
+			while (rs.next()) {
+				OrderMainBean omb = new OrderMainBean();
+				omb.setAddr(rs.getString("addr"));
+				omb.setDate(rs.getString("date"));
+				omb.setId(rs.getString("id"));
+				omb.setNote(rs.getString("note"));
+				omb.setProcess(rs.getString("process"));
+				omb.setReceiver(rs.getString("receiver"));
+				omb.setTel(rs.getString("tel"));
+				omb.setExt(getOeb(omb.getId()));
+				list.add(omb);
+			}
+		} catch (SQLException e) {
+			ex = e;
+		} finally {
+			closeConnect();
+		}
+		return list;
+	}
+
+	public OrderExtBean[] getOeb(String id) {
+		int amount = 0;
+		OrderExtBean[] oeb = null;
+		try {
+			// 取得單筆訂單有的商品種類數
+			conn1 = dataSource.getConnection();
+			stmt1 = conn1.prepareStatement("SELECT count(id) AS num FROM orderext WHERE id=?");
+			stmt1.setString(1, id);
+			rs = stmt1.executeQuery();
+			if (rs.next())
+				amount = rs.getInt("num");
+			oeb = new OrderExtBean[amount];
+			// --------------------------------------------------------------------------------------------
+			stmt1 = conn1.prepareStatement("SELECT * FROM orderext WHERE id=?");
+			stmt1.setString(1, id);
+			rs = stmt1.executeQuery();
+			int i = 0;
+			while (rs.next()) {
+				oeb[i] = new OrderExtBean();
+				oeb[i].setBuyquantity(rs.getInt("buyquantity"));
+				oeb[i].setCommodityId(rs.getString("commodity_id"));
+				oeb[i].setId(rs.getString("id"));
+				oeb[i].setPrice(rs.getInt("price"));
+				i++;
+			}
+		} catch (SQLException e) {
+			ex = e;
+		} finally {
+			if (conn1 != null) {
+				try {
+					conn1.close();
+				} catch (SQLException e) {
+					if (ex == null)
+						ex = e;
+				}
+			}
+			if (stmt1 != null) {
+				try {
+					stmt1.close();
+				} catch (SQLException e) {
+					if (ex == null) {
+						ex = e;
+					}
+				}
+			}
+			if (ex != null)
+				throw new RuntimeException(ex);
+		}
+		return oeb;
+	}
+
 	public String todayNum() {
 		String num;
 		SimpleDateFormat bartDateFormat = new SimpleDateFormat("yyyyMMdd");
@@ -68,7 +153,7 @@ public class OrderDAO implements IOrderDAO {
 			conn1 = dataSource.getConnection();
 			stmt1 = conn1
 					.prepareStatement("SELECT LPAD(MAX(right(id,4))+1,4,0) AS max FROM ordermain WHERE LEFT(id,9)=?");
-			stmt1.setString(1, "A"+num);
+			stmt1.setString(1, "A" + num);
 			rs = stmt1.executeQuery();
 			rs.next();
 			if (rs.getString("max") != null) {
@@ -99,10 +184,9 @@ public class OrderDAO implements IOrderDAO {
 			if (ex != null)
 				throw new RuntimeException(ex);
 		}
-		return "A"+num;
+		return "A" + num;
 	}
-	
-	
+
 	public void closeConnect() {
 		if (conn != null) {
 			try {

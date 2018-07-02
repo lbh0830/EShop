@@ -1,6 +1,9 @@
 package com.shop.service;
 
+import java.util.List;
+
 import com.shop.DAO.IOrderDAO;
+import com.shop.model.AccountBean;
 import com.shop.model.OrderMainBean;
 
 public class OrderService {
@@ -14,5 +17,8 @@ public class OrderService {
 		iOrderDAO.addOrderMain(omb);
 	}
 	
+	public List<OrderMainBean> get(AccountBean account) {
+		return iOrderDAO.getOrderMain(account);
+	}
 	
 }

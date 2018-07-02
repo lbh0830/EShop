@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.shop.DAO.ICommodityDAO;
 import com.shop.model.CommodityBean;
+import com.shop.model.OrderExtBean;
 
 public class CommodityService {
 	ICommodityDAO iCommodityDAO;
@@ -34,5 +35,9 @@ public class CommodityService {
 
 	public void delete(String id) {
 		iCommodityDAO.deleteCommodity(id);
+	}
+	
+	public void alterQuantity(OrderExtBean[]oeb) {
+		iCommodityDAO.alterQuantity(oeb);
 	}
 }

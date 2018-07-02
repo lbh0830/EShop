@@ -89,7 +89,7 @@
 								if((account.getPrivilege()&1)!=0)	
 									out.print("<li><a href='Commodity?account=admin'>商品管理</a></li>");
 								if((account.getPrivilege()&2)!=0)
-									out.print("<li><a href='orderAdmin.jsp'>訂單管理</a></li>");
+									out.print("<li><a href='Order'>訂單管理</a></li>");
 								if((account.getPrivilege()&4)!=0)	
 									out.print("<li><a href='memberAdmin.jsp'>會員管理</a></li>");
 								if((account.getPrivilege()&8)!=0)

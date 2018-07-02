@@ -35,6 +35,7 @@ public class OrderAdd extends HttpServlet {
 		OrderExtBean[] oeb = new OrderExtBean[list.size()];
 		System.out.println(list.size());
 		OrderService orderService = (OrderService) getServletContext().getAttribute("orderService");
+		CommodityService commodityService = (CommodityService) getServletContext().getAttribute("commodityService");
 		//---抓當前時間
 		String date;
 		SimpleDateFormat bartDateFormat = new SimpleDateFormat("yyyyMMdd");	
@@ -59,6 +60,8 @@ public class OrderAdd extends HttpServlet {
 		}
 		omb.setExt(oeb);
 		orderService.addOrder(omb);
+		commodityService.alterQuantity(oeb);
+		req.getSession().removeAttribute("cart");
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

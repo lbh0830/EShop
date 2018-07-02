@@ -12,6 +12,7 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import com.shop.model.CommodityBean;
+import com.shop.model.OrderExtBean;
 
 public class CommodityDAO implements ICommodityDAO {
 	private DataSource dataSource;
@@ -25,7 +26,7 @@ public class CommodityDAO implements ICommodityDAO {
 	}
 
 	@Override
-	public void getCommodityById(CommodityBean cb,String id) {
+	public void getCommodityById(CommodityBean cb, String id) {
 		try {
 			conn = dataSource.getConnection();
 			stmt = conn.prepareStatement("SELECT * FROM commodity WHERE id=?");
@@ -46,8 +47,6 @@ public class CommodityDAO implements ICommodityDAO {
 		} finally {
 			closeConnect();
 		}
-
-	
 
 	}
 
@@ -218,6 +217,24 @@ public class CommodityDAO implements ICommodityDAO {
 				throw new RuntimeException(ex);
 		}
 		return num;
+	}
+
+	@Override
+	public void alterQuantity(OrderExtBean[] oeb) {
+		try {
+			conn = dataSource.getConnection();
+			for (OrderExtBean comm : oeb) {
+				stmt = conn.prepareStatement("UPDATE commodity SET quantity=quantity-? WHERE id=?");
+				stmt.setInt(1, comm.getBuyquantity());
+				stmt.setString(2, comm.getCommodityId());
+				stmt.executeUpdate();
+			}
+		} catch (SQLException e) {
+			ex = e;
+		} finally {
+			closeConnect();
+		}
+
 	}
 
 	public void closeConnect() {
