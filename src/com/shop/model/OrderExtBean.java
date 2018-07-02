@@ -3,7 +3,8 @@ package com.shop.model;
 import java.io.Serializable;
 
 public class OrderExtBean implements Serializable {
-	String id,commodityId,price,buyQuantity;
+	String id,commodityId;
+	int price,buyQuantity;
 
 	public String getId() {
 		return id;
@@ -21,19 +22,19 @@ public class OrderExtBean implements Serializable {
 		this.commodityId = commodityId;
 	}
 
-	public String getPrice() {
+	public int getPrice() {
 		return price;
 	}
 
-	public void setPrice(String price) {
+	public void setPrice(int price) {
 		this.price = price;
 	}
 
-	public String getBuyquantity() {
+	public int getBuyquantity() {
 		return buyQuantity;
 	}
 
-	public void setBuyquantity(String buyQuantity) {
+	public void setBuyquantity(int buyQuantity) {
 		this.buyQuantity = buyQuantity;
 	}
 }

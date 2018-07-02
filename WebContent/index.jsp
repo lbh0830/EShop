@@ -67,9 +67,10 @@
 						%>
 						<%
 							int cartNum = 0;
-							ArrayList<CommodityBean> cartList = (ArrayList<CommodityBean>) session.getAttribute("cart");
-							if(session.getAttribute("cart")!=null)
+							if(session.getAttribute("cart")!=null){
+								ArrayList<CommodityBean> cartList = (ArrayList<CommodityBean>) session.getAttribute("cart");
 								cartNum = cartList.size();
+							}
 						%>
 						<li><a href="cart.jsp">購物車(<%=cartNum %>)</a></li>
 						<li><span class="opener">商品分類</span>

@@ -32,7 +32,10 @@ public class CartUpdate extends HttpServlet {
 			cb.setQuantity(Integer.parseInt(quantity[i]));
 			i++;
 		}
-		resp.sendRedirect("orderCheck.jsp");
+		if(req.getSession().getAttribute("login")==null)
+			resp.sendRedirect("login.jsp");
+		else
+			resp.sendRedirect("orderCheck.jsp");
 	}
 
 

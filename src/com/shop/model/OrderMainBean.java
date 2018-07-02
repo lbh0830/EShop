@@ -4,7 +4,16 @@ import java.io.Serializable;
 
 public class OrderMainBean implements Serializable {
 	String id, memId, date, receiver, addr, tel, process, note;
-
+	OrderExtBean[] oeb;
+	
+	public OrderExtBean[] getExt() {
+		return oeb;
+	}
+	public void setExt(OrderExtBean[] oeb) {
+		this.oeb = oeb;
+	}
+	
+	
 	public String getId() {
 		return id;
 	}
