@@ -1,8 +1,10 @@
--- MySQL dump 10.13  Distrib 5.7.22, for Win64 (x86_64)
+CREATE DATABASE  IF NOT EXISTS `shop` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `shop`;
+-- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
 --
 -- Host: localhost    Database: shop
 -- ------------------------------------------------------
--- Server version	5.7.22-log
+-- Server version	5.7.21-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -23,7 +25,7 @@ DROP TABLE IF EXISTS `commodity`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `commodity` (
-  `id` varchar(20) COLLATE utf8mb4_bin NOT NULL,
+  `id` varchar(45) COLLATE utf8mb4_bin NOT NULL,
   `name` varchar(80) COLLATE utf8mb4_bin NOT NULL,
   `category` varchar(40) COLLATE utf8mb4_bin NOT NULL,
   `price` int(11) NOT NULL,
@@ -41,7 +43,7 @@ CREATE TABLE `commodity` (
 
 LOCK TABLES `commodity` WRITE;
 /*!40000 ALTER TABLE `commodity` DISABLE KEYS */;
-INSERT INTO `commodity` VALUES ('20180625001','鉛筆盒','配件',70,10,'精美的鉛筆盒，買到賺到哦!!!','黑','1530034371632.JPG'),('20180626003','樂譜','配件',33,3,'吉他譜','A4','1530022831566.png'),('20180626004','正常點','帽子',10,1000,'詳細資訊','規格','1530034331226.JPG');
+INSERT INTO `commodity` VALUES ('20180625001','鉛筆盒','配件',70,4,'精美的鉛筆盒，買到賺到哦!!!','黑','1529993011308.jpg'),('20180626001','禹丞的雙下巴','配件',50,2,'全球限量，僅此一件。偽裝肥宅必備武器，錯過了就買不到囉!! 快叫把拔買給你','一組兩件','1529993983176.jpg'),('20180626002','天線寶寶','配件',40,4,'一隻40，整組帶走算你200','紅綠黃紫','1529994751564.jpg');
 /*!40000 ALTER TABLE `commodity` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -87,9 +89,7 @@ CREATE TABLE `orderext` (
   `id` varchar(15) COLLATE utf8mb4_bin NOT NULL,
   `commodity_id` varchar(20) COLLATE utf8mb4_bin DEFAULT NULL,
   `price` int(11) DEFAULT NULL,
-  `buyquantity` int(11) DEFAULT NULL,
-  `note` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  `buyquantity` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -99,6 +99,7 @@ CREATE TABLE `orderext` (
 
 LOCK TABLES `orderext` WRITE;
 /*!40000 ALTER TABLE `orderext` DISABLE KEYS */;
+INSERT INTO `orderext` VALUES ('A201807020001','20180626001',50,1),('A201807020001','20180625001',70,3),('A201807020001','20180626002',40,1),('A201807020002','20180626001',50,1),('A201807020002','20180625001',70,2),('A201807020002','20180626002',40,1),('A201807020003','20180626001',50,1),('A201807020003','20180626002',40,1),('A201807020004','20180626002',40,3),('A201807020005','20180626002',40,3),('A201807020006','20180626002',40,3),('A201807020006','20180626001',50,1),('A201807020007','20180625001',70,3),('A201807020008','20180625001',70,3),('A201807020009','20180625001',70,3),('A201807020010','20180625001',70,3);
 /*!40000 ALTER TABLE `orderext` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -117,6 +118,7 @@ CREATE TABLE `ordermain` (
   `addr` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL,
   `tel` varchar(13) COLLATE utf8mb4_bin DEFAULT NULL,
   `process` varchar(45) COLLATE utf8mb4_bin DEFAULT NULL,
+  `note` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -127,6 +129,7 @@ CREATE TABLE `ordermain` (
 
 LOCK TABLES `ordermain` WRITE;
 /*!40000 ALTER TABLE `ordermain` DISABLE KEYS */;
+INSERT INTO `ordermain` VALUES ('A201807020001',1,'20180702','盧柏翰','桃園市中壢區龍平六街52號','0972378795','出貨準備中','1234564wwww'),('A201807020002',1,'20180702','淋雨陳','自強樓406','0977878787','出貨準備中','45454546'),('A201807020003',1,'20180702','盧柏翰','桃園市中壢區龍平六街52號','+886972378795','出貨準備中','12344444#$!$!$$@#@#'),('A201807020004',1,'20180702','李冠毅','自強樓406','119','出貨準備中','嗨嗨 可惡的班代'),('A201807020005',1,'20180702','盧柏翰','桃園市中壢區龍平六街52號','+886972378795','出貨準備中','急件'),('A201807020006',1,'20180702','0800','121','1212','出貨準備中','3333'),('A201807020007',1,'20180702','李冠毅','楊梅區公所','119','出貨準備中','可惡的班代'),('A201807020008',1,'20180702','李冠','12131','1313113','出貨準備中','4878787'),('A201807020009',1,'20180702','盧柏翰','桃園市中壢區龍平六街52號','+886972378795','出貨準備中','ㄉ'),('A201807020010',1,'20180702','盧柏翰','桃園市中壢區龍平六街52號','+886972378795','出貨準備中','ㄅ');
 /*!40000 ALTER TABLE `ordermain` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -139,4 +142,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-07-01 22:00:29
+-- Dump completed on 2018-07-02 16:16:35
