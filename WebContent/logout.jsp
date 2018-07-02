@@ -10,7 +10,11 @@
 <link rel="stylesheet" href="assets/css/main.css" />
 </head>
 <body class="is-preload">
-	<%session.removeAttribute("login"); %>
+	<%
+		session.removeAttribute("login"); 
+		session.removeAttribute("cart");
+		session.removeAttribute("order"); 
+	%>
 	<!-- Wrapper -->
 	<div id="wrapper">
 

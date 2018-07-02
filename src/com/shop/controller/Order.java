@@ -25,6 +25,7 @@ public class Order extends HttpServlet {
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		if(req.getSession().getAttribute("login")!=null) {
+			System.out.println("我有被執行");
 			AccountBean account = (AccountBean) req.getSession().getAttribute("login");
 			OrderService orderService = (OrderService) getServletContext().getAttribute("orderService");
 			List<OrderMainBean> list = orderService.get(account);

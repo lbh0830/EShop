@@ -21,7 +21,7 @@ public class OrderDAO implements IOrderDAO {
 	private Connection conn, conn1;
 	private PreparedStatement stmt, stmt1;
 	private SQLException ex;
-	private ResultSet rs;
+	private ResultSet rs,rs1;
 
 	public OrderDAO(DataSource defaultDS) {
 		this.dataSource = defaultDS;
@@ -102,21 +102,21 @@ public class OrderDAO implements IOrderDAO {
 			conn1 = dataSource.getConnection();
 			stmt1 = conn1.prepareStatement("SELECT count(id) AS num FROM orderext WHERE id=?");
 			stmt1.setString(1, id);
-			rs = stmt1.executeQuery();
-			if (rs.next())
-				amount = rs.getInt("num");
+			rs1 = stmt1.executeQuery();
+			if (rs1.next())
+				amount = rs1.getInt("num");
 			oeb = new OrderExtBean[amount];
 			// --------------------------------------------------------------------------------------------
 			stmt1 = conn1.prepareStatement("SELECT * FROM orderext WHERE id=?");
 			stmt1.setString(1, id);
-			rs = stmt1.executeQuery();
+			rs1 = stmt1.executeQuery();
 			int i = 0;
-			while (rs.next()) {
+			while (rs1.next()) {
 				oeb[i] = new OrderExtBean();
-				oeb[i].setBuyquantity(rs.getInt("buyquantity"));
-				oeb[i].setCommodityId(rs.getString("commodity_id"));
-				oeb[i].setId(rs.getString("id"));
-				oeb[i].setPrice(rs.getInt("price"));
+				oeb[i].setBuyquantity(rs1.getInt("buyquantity"));
+				oeb[i].setCommodityId(rs1.getString("commodity_id"));
+				oeb[i].setId(rs1.getString("id"));
+				oeb[i].setPrice(rs1.getInt("price"));
 				i++;
 			}
 		} catch (SQLException e) {

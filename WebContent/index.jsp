@@ -80,7 +80,7 @@
 								<li><a href="Commodity?item=背包&account=member">背包</a></li>
 								<li><a href="Commodity?item=帽子&account=member">帽子</a></li>
 							</ul></li>
-						<li><a href="order.jsp">訂單管理</a></li>
+						<li><a href="Order">訂單管理</a></li>
 						<%
 						if(session.getAttribute("login")!=null){
 							AccountBean account =(AccountBean) session.getAttribute("login");

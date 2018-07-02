@@ -1,15 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page
-	import="com.shop.model.AccountBean,com.shop.model.CommodityBean,java.util.*"%>
+	import="com.shop.model.*,java.util.*"%>
 <%
-	List<CommodityBean> list = (ArrayList<CommodityBean>) session.getAttribute("commodity");
+	List<OrderMainBean> list = (ArrayList<OrderMainBean>) session.getAttribute("order");
 %>
 
 <!DOCTYPE html>
 <html>
 <head>
-<title><%=request.getParameter("item")%></title>
+<title>訂單查詢</title>
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, user-scalable=no" />
 <link rel="stylesheet"
@@ -27,7 +27,7 @@
 
 				<!-- Header -->
 				<header id="header">
-					<strong>首頁>商品分類><%=request.getParameter("item")%></strong>
+					<strong>首頁>訂單查詢</strong>
 				</header>
 				<br>
 				<div class="table-wrapper">
@@ -37,39 +37,25 @@
 					<table class="alt">
 						<thead>
 							<tr>
-								<th class="sort"><a class="logo" href="javascript: void(0)"><strong>商品名稱</strong></a></th>
-								<th><strong>縮圖</strong></th>
-								<th><strong>分類</strong></th>
-								<th class="sort"><a class="logo" href="javascript: void(0)"><strong>單價</strong></a></th>
-								<th><strong>詳細資訊</strong></th>
-								<th class="sort"><a class="logo" href="javascript: void(0)"><strong>規格</strong></a></th>
+								<th class="sort"><a class="logo" href="javascript: void(0)"><strong>訂單編號</strong></a></th>
+								<th><strong>收件人</strong></th>
+								<th class="sort"><a class="logo" href="javascript: void(0)"><strong>下單日期</strong></a></th>
+								<th><strong>出貨狀態</strong></th>					
+								<th><strong>備註</strong></th>
 							</tr>
 						</thead>
 						<tbody>
 							<%
-								for (CommodityBean comm : list) {
-										String commHref = "itemDetail.jsp?id=" + comm.getId();
+								for (OrderMainBean omb : list) {
+										String ombHref = "orderDetail.jsp?id=" + omb.getId();
 							%>
 							<tr>
-								<td style="vertical-align: middle;" width="120"><a class="logo"
-									href=<%=commHref%>><strong> <%=comm.getName()%></strong></a></td>
-								<%
-									String imgPath = "images/" + comm.getImage();
-								%>
-								<td style="width: 123px; height: 124px;"><a
-									href="<%=commHref%>" class="image"><img src=<%=imgPath%>
-										alt="commodityIMG" height="100" /></a></td>
-								<td style="vertical-align: middle;" width="70"><%=comm.getCategory()%></td>
-								<td style="vertical-align: middle;" width="50"><%=comm.getPrice()%></td>
-								<%
-									String str;
-											if (comm.getDetail().length() > 20)
-												str = comm.getDetail().substring(0, 20) + "...";
-											else
-												str = comm.getDetail();
-								%>
-								<td style="vertical-align: middle; width: 200px;" width="300"><%=str%></td>
-								<td style="vertical-align: middle;" width="70"><%=comm.getSpec()%></td>
+								<td style="vertical-align: middle;" ><a class="logo"
+									href=<%=ombHref%>><strong> <%=omb.getId()%></strong></a></td>
+								<td style="vertical-align: middle;" ><%=omb.getReceiver()%></td>
+								<td style="vertical-align: middle;" ><%=omb.getDate()%></td>
+								<td style="vertical-align: middle;" ><%=omb.getProcess()%></td>
+								<td style="vertical-align: middle;" ><%=omb.getNote()%></td>
 							</tr>
 							<%
 								}
@@ -177,12 +163,6 @@
 		}
 		function getCellValue(row, index) {
 			return $(row).children('td').eq(index).text();
-		}
-		function deleteItem(id) {
-			var r = confirm("你確定要刪除這筆資料");
-			if (r) {
-				window.location.replace(id);
-			}
 		}
 	</script>
 </body>

@@ -38,7 +38,6 @@
 					<table class="alt">
 						<thead>
 							<tr>
-								<th></th>
 								<th><strong>商品編號</strong></th>
 								<th><strong>商品名稱</strong></th>
 								<th><strong>縮圖</strong></th>
@@ -58,9 +57,6 @@
 							%>
 
 							<tr class="main">
-								<td style="vertical-align: middle;"><a
-									href="javascript: deleteItem('<%=cartDelete%>')"><i
-										class="fa fa-trash"></i></a></td>
 								<td style="vertical-align: middle;"><%=comm.getId()%></td>
 								<td style="vertical-align: middle;"><a class="logo"
 									href=<%=commHref%>><strong> <%=comm.getName()%></strong></a></td>
@@ -192,14 +188,6 @@
 	<script src="assets/js/breakpoints.min.js"></script>
 	<script src="assets/js/util.js"></script>
 	<script src="assets/js/main.js"></script>
-	<script>
-		function deleteItem(id) {
-			var r = confirm("你確定要刪除這筆商品");
-			if (r) {
-				window.location.replace(id);
-			}
-		}
-	</script>
 	<script>
 		var total = 0;
 		$("tr.main").each(
