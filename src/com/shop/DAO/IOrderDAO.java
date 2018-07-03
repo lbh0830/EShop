@@ -7,7 +7,7 @@ import com.shop.model.OrderMainBean;
 
 public interface IOrderDAO {
 	void addOrderMain(OrderMainBean omb);
-	void updateProcess(OrderMainBean omb);
+	void updateProcess(String id, String process);
 	List<OrderMainBean> getOrderMain(AccountBean account);
 	List<OrderMainBean> getAllOrderMain();
 }

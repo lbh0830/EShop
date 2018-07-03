@@ -40,7 +40,7 @@
 								<th class="sort"><a class="logo" href="javascript: void(0)"><strong>訂單編號</strong></a></th>
 								<th><strong>收件人</strong></th>
 								<th class="sort"><a class="logo" href="javascript: void(0)"><strong>下單日期</strong></a></th>
-								<th><strong>出貨狀態</strong></th>					
+								<th class="sort"><a class="logo" href="javascript: void(0)"><strong>出貨狀態</strong></a></th>					
 								<th><strong>備註</strong></th>
 							</tr>
 						</thead>

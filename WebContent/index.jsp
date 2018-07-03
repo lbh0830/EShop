@@ -21,6 +21,7 @@
 				<!-- Header -->
 				<header id="header">
 					<a href="index.jsp" class="logo"><strong>首頁</strong></a>
+					<marquee direction="left" height="30" scrollamount="5" style="color:red;">慶祝195找到好工作，全館加長尺碼全部195!!!</marquee>
 				</header>
 
 				<!-- Banner -->

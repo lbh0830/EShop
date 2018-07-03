@@ -35,7 +35,8 @@
 				<br>
 
 				<div class="col-12 col-12-small">
-				<form action="POST" method="POST">
+				<form action="OrderProcessUpdate" method="POST">
+				<input type="hidden" name="valId" value=<%=omb.getId() %>>
 					<ul>
 						<li>訂單編號 : <%=omb.getId()%></li>
 						<li>收件人 : <%=omb.getReceiver()%></li>

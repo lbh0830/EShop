@@ -21,7 +21,7 @@ public class OrderDAO implements IOrderDAO {
 	private Connection conn, conn1;
 	private PreparedStatement stmt, stmt1;
 	private SQLException ex;
-	private ResultSet rs,rs1;
+	private ResultSet rs, rs1;
 
 	public OrderDAO(DataSource defaultDS) {
 		this.dataSource = defaultDS;
@@ -62,8 +62,18 @@ public class OrderDAO implements IOrderDAO {
 	}
 
 	@Override
-	public void updateProcess(OrderMainBean omb) {
-
+	public void updateProcess(String id, String process) {
+		try {
+			conn = dataSource.getConnection();
+			stmt = conn.prepareStatement("UPDATE ordermain SET process=? WHERE id=?");
+			stmt.setString(1, process);
+			stmt.setString(2, id);
+			stmt.executeUpdate();
+		} catch (SQLException e) {
+			ex = e;
+		} finally {
+			closeConnect();
+		}
 	}
 
 	@Override
@@ -92,7 +102,7 @@ public class OrderDAO implements IOrderDAO {
 		}
 		return list;
 	}
-	
+
 	@Override
 	public List<OrderMainBean> getOrderMain(AccountBean account) {
 		List<OrderMainBean> list = new ArrayList<OrderMainBean>();
@@ -235,7 +245,5 @@ public class OrderDAO implements IOrderDAO {
 		if (ex != null)
 			throw new RuntimeException(ex);
 	}
-
-	
 
 }

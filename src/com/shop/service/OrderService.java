@@ -25,4 +25,8 @@ public class OrderService {
 		return iOrderDAO.getAllOrderMain();
 	}
 	
+	public void update(String id, String process) {
+		iOrderDAO.updateProcess(id, process);
+	}
+	
 }
