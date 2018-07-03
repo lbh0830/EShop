@@ -35,7 +35,15 @@ public class UserService {
 		iAccountDAO.updateAccount(account);
 	}
 	
+	public void update(int uid,int privilege) {
+		iAccountDAO.updateAccount(uid, privilege);
+	}
+	
 	public List<AccountBean> getAll(){
 		return iAccountDAO.getAccount();	
+	}
+	
+	public void getByUid(AccountBean account,String uid) {
+		iAccountDAO.getAccountById(account, uid);
 	}
 }

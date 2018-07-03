@@ -85,7 +85,31 @@ public class AccountDAO implements IAccountDAO {
 			closeConnect();
 		}
 	}
-
+	
+	@Override
+	public void getAccountById(AccountBean account,String uid) {
+		try {
+			conn = dataSource.getConnection();
+			stmt = conn.prepareStatement("SELECT * FROM member WHERE uid=?");
+			stmt.setInt(1, Integer.parseInt(uid));
+			rs = stmt.executeQuery();
+			if (rs.next()) {
+				account.setUid(rs.getInt("uid"));
+				account.setAccount(rs.getString("account"));
+				account.setPassword(rs.getString("password"));
+				account.setAddr(rs.getString("addr"));
+				account.setEmail(rs.getString("email"));
+				account.setName(rs.getString("name"));
+				account.setPrivilege(rs.getInt("privilege"));
+				account.setTel(rs.getString("tel"));
+			}
+		} catch (SQLException e) {
+			ex = e;
+		} finally {
+			closeConnect();
+		}
+	}
+	
 	public List<AccountBean> getAccount() {					//for Administrator
 		List<AccountBean> list = new ArrayList<AccountBean>();
 		try {
@@ -130,7 +154,21 @@ public class AccountDAO implements IAccountDAO {
 			closeConnect();
 		}
 	}
-
+	
+	public void updateAccount(int uid, int privilege) {
+		try {
+			conn = dataSource.getConnection();
+			stmt = conn
+					.prepareStatement("UPDATE member SET privilege=? WHERE uid=?");
+			stmt.setInt(1, privilege);
+			stmt.setInt(2, uid);
+			stmt.executeUpdate();
+		} catch (SQLException e) {
+			ex = e;
+		} finally {
+			closeConnect();
+		}
+	}
 	public void closeConnect() {
 		if (conn != null) {
 			try {

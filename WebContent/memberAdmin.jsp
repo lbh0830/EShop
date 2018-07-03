@@ -46,7 +46,7 @@
 						<tbody>
 							<%
 								for (AccountBean account : list) {
-									String accountHref = "commodityUpdate.jsp?id=" + Integer.toString(account.getUid());
+									String accountHref = "MemberPrivilegeUpdate?action=get&id=" + Integer.toString(account.getUid());
 							%>
 							<tr>
 								<td style="vertical-align: middle;"><%=account.getUid()%></td>
