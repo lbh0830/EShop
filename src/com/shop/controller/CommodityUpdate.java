@@ -54,7 +54,7 @@ public class CommodityUpdate extends HttpServlet {
 			e.printStackTrace();
 		}
 		commodityService.update(cb, hasImage);
-		resp.sendRedirect("Commodity");
+		resp.sendRedirect("Commodity?account=admin");
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

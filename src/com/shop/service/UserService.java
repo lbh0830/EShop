@@ -1,5 +1,8 @@
 package com.shop.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.shop.DAO.IAccountDAO;
 import com.shop.model.AccountBean;
 
@@ -30,5 +33,9 @@ public class UserService {
 	
 	public void update(AccountBean account) {
 		iAccountDAO.updateAccount(account);
+	}
+	
+	public List<AccountBean> getAll(){
+		return iAccountDAO.getAccount();	
 	}
 }

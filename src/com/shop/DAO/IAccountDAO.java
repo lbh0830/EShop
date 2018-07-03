@@ -1,5 +1,7 @@
 package com.shop.DAO;
 
+import java.util.List;
+
 import com.shop.model.AccountBean;
 
 public interface IAccountDAO {
@@ -7,4 +9,5 @@ public interface IAccountDAO {
     void addAccount(AccountBean account);
     void getAccount(AccountBean account); 
     void updateAccount(AccountBean account);
+    List<AccountBean> getAccount();
 }

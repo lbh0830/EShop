@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@page import="com.shop.model.AccountBean"%>
+<%@page import="com.shop.model.AccountBean,java.util.*"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,44 +20,51 @@
 
 				<!-- Header -->
 				<header id="header">
-					<a href="index.jsp" class="logo"><strong>首頁>會員管理</strong></a>
+					<a href="index.jsp" class="logo"><strong>首頁>後台管理>會員管理</strong></a>
 				</header>
 
-			
-					<br><br><h3>會員資料清單</h3>
-					<div class="table-wrapper">
-					<% AccountBean account = (AccountBean)session.getAttribute("login");%>
-					
-						<table class="alt">
-							<tbody>
-								<tr>
-									<td>帳號</td>
-									<td><%=account.getAccount() %></td>
-								</tr>
-								<tr>
-									<td>姓名</td>
-									<td><%=account.getName() %></td>
 
-								</tr>
-								<tr>
-									<td>地址</td>
-									<td><%=account.getAddr() %></td>
+				<br> <br>
+				<h3>會員資料清單</h3>
+				<div class="table-wrapper">
+					<%
+						List<AccountBean> list = (ArrayList<AccountBean>) session.getAttribute("member");
+					%>
 
-								</tr>
-								<tr>
-									<td>電話</td>
-									<td><%=account.getTel() %></td>
+					<table class="alt">
+						<thead>
+							<tr>
+								<th class="sort"><a class="logo" href="javascript: void(0)"><strong>會員編號</strong></a></th>
+								<th class="sort"><a class="logo" href="javascript: void(0)"><strong>帳號</strong></a></th>
+								<th><strong>姓名</strong></th>
+								<th><strong>地址</strong></th>
+								<th><strong>聯絡電話</strong></th>
+								<th><strong>e-mail</strong></th>
+								<th class="sort"><a class="logo" href="javascript: void(0)"><strong>權限</strong></a></th>
+							</tr>
+						</thead>
+						<tbody>
+							<%
+								for (AccountBean account : list) {
+									String accountHref = "commodityUpdate.jsp?id=" + Integer.toString(account.getUid());
+							%>
+							<tr>
+								<td style="vertical-align: middle;"><%=account.getUid()%></td>
+								<td style="vertical-align: middle;"><a class="logo"
+									href=<%=accountHref%>><strong><%=account.getAccount()%></strong></a></td>
+								<td style="vertical-align: middle;"><%=account.getName()%></td>
+								<td style="vertical-align: middle;"><%=account.getAddr()%></td>
+								<td style="vertical-align: middle;"><%=account.getTel()%></td>
+								<td style="vertical-align: middle;"><%=account.getEmail()%></td>
+								<td style="vertical-align: middle;"><%=account.getPrivilege()%></td>
+							</tr>
+							<%
+								}
+							%>
+						</tbody>
+					</table>
+				</div>
 
-								</tr>
-								<tr>
-									<td>電子信箱</td>
-									<td><%=account.getEmail() %></td>
-								</tr>
-							</tbody>
-						</table>
-						<a href="memberUpdate.jsp" class="button primary">修改個人資料</a>
-					</div>
-			
 			</div>
 		</div>
 
@@ -114,6 +121,31 @@
 	<script src="assets/js/breakpoints.min.js"></script>
 	<script src="assets/js/util.js"></script>
 	<script src="assets/js/main.js"></script>
+	<script>
+		$(document).on(
+				'click',
+				'th.sort',
+				function() {
+					var table = $(this).parents('table').eq(0);
+					var rows = table.find('tr:gt(0)').toArray().sort(
+							comparer($(this).index()));
+					this.asc = !this.asc;
+					if (!this.asc) {
+						rows = rows.reverse();
+					}
+					table.children('tbody').empty().html(rows);
+				});
+		function comparer(index) {
+			return function(a, b) {
+				var valA = getCellValue(a, index), valB = getCellValue(b, index);
+				return $.isNumeric(valA) && $.isNumeric(valB) ? valA - valB
+						: valA.localeCompare(valB);
+			};
+		}
+		function getCellValue(row, index) {
+			return $(row).children('td').eq(index).text();
+		}
+	</script>
 
 </body>
 </html>

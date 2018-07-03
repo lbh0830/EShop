@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.sql.DataSource;
 
@@ -84,10 +86,37 @@ public class AccountDAO implements IAccountDAO {
 		}
 	}
 
+	public List<AccountBean> getAccount() {					//for Administrator
+		List<AccountBean> list = new ArrayList<AccountBean>();
+		try {
+			conn = dataSource.getConnection();
+			stmt = conn.prepareStatement("SELECT * FROM member");
+			rs = stmt.executeQuery();
+			while (rs.next()) {
+				AccountBean account = new AccountBean();
+				account.setUid(rs.getInt("uid"));
+				account.setAccount(rs.getString("account"));
+				account.setPassword(rs.getString("password"));
+				account.setAddr(rs.getString("addr"));
+				account.setEmail(rs.getString("email"));
+				account.setName(rs.getString("name"));
+				account.setPrivilege(rs.getInt("privilege"));
+				account.setTel(rs.getString("tel"));
+				list.add(account);
+			}
+		} catch (SQLException e) {
+			ex = e;
+		} finally {
+			closeConnect();
+		}
+		return list;
+	}
+
 	public void updateAccount(AccountBean account) {
 		try {
 			conn = dataSource.getConnection();
-			stmt = conn.prepareStatement("UPDATE member SET password=?, name=?, addr=?, tel=?, email=? WHERE account=?");
+			stmt = conn
+					.prepareStatement("UPDATE member SET password=?, name=?, addr=?, tel=?, email=? WHERE account=?");
 			stmt.setString(1, account.getPassword());
 			stmt.setString(2, account.getName());
 			stmt.setString(3, account.getAddr());
@@ -101,6 +130,7 @@ public class AccountDAO implements IAccountDAO {
 			closeConnect();
 		}
 	}
+
 	public void closeConnect() {
 		if (conn != null) {
 			try {
