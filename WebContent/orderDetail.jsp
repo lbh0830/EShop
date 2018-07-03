@@ -39,8 +39,10 @@
 						<li>訂單編號 : <%=omb.getId()%></li>
 						<li>收件人 : <%=omb.getReceiver()%></li>
 						<li>收件人地址 : <%=omb.getAddr()%></li>
+						<li>收件人電話 : <%=omb.getTel()%></li>
 						<li>下單日期 : <%=omb.getDate()%></li>
 						<li>出貨狀態 : <%=omb.getProcess()%></li>
+						<li>備註 : <%=omb.getNote()%></li>
 					</ul>
 				</div>
 

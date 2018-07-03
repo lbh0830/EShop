@@ -67,6 +67,33 @@ public class OrderDAO implements IOrderDAO {
 	}
 
 	@Override
+	public List<OrderMainBean> getAllOrderMain() {
+		List<OrderMainBean> list = new ArrayList<OrderMainBean>();
+		try {
+			conn = dataSource.getConnection();
+			stmt = conn.prepareStatement("SELECT * FROM ordermain");
+			rs = stmt.executeQuery();
+			while (rs.next()) {
+				OrderMainBean omb = new OrderMainBean();
+				omb.setAddr(rs.getString("addr"));
+				omb.setDate(rs.getString("date"));
+				omb.setId(rs.getString("id"));
+				omb.setNote(rs.getString("note"));
+				omb.setProcess(rs.getString("process"));
+				omb.setReceiver(rs.getString("receiver"));
+				omb.setTel(rs.getString("tel"));
+				omb.setExt(getOeb(omb.getId()));
+				list.add(omb);
+			}
+		} catch (SQLException e) {
+			ex = e;
+		} finally {
+			closeConnect();
+		}
+		return list;
+	}
+	
+	@Override
 	public List<OrderMainBean> getOrderMain(AccountBean account) {
 		List<OrderMainBean> list = new ArrayList<OrderMainBean>();
 		try {
@@ -208,5 +235,7 @@ public class OrderDAO implements IOrderDAO {
 		if (ex != null)
 			throw new RuntimeException(ex);
 	}
+
+	
 
 }

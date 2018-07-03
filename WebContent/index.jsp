@@ -67,7 +67,7 @@
 						%>
 						<%
 							int cartNum = 0;
-							if(session.getAttribute("cart")!=null){
+							if(session.getAttribute("cart")==null){}else{
 								ArrayList<CommodityBean> cartList = (ArrayList<CommodityBean>) session.getAttribute("cart");
 								cartNum = cartList.size();
 							}
@@ -80,7 +80,7 @@
 								<li><a href="Commodity?item=背包&account=member">背包</a></li>
 								<li><a href="Commodity?item=帽子&account=member">帽子</a></li>
 							</ul></li>
-						<li><a href="Order">訂單管理</a></li>
+						<li><a href="Order">訂單查詢</a></li>
 						<%
 						if(session.getAttribute("login")!=null){
 							AccountBean account =(AccountBean) session.getAttribute("login");
@@ -89,12 +89,10 @@
 								if((account.getPrivilege()&1)!=0)	
 									out.print("<li><a href='Commodity?account=admin'>商品管理</a></li>");
 								if((account.getPrivilege()&2)!=0)
-									out.print("<li><a href='Order'>訂單管理</a></li>");
+									out.print("<li><a href='OrderAdmin'>訂單管理</a></li>");
 								if((account.getPrivilege()&4)!=0)	
 									out.print("<li><a href='memberAdmin.jsp'>會員管理</a></li>");
 								if((account.getPrivilege()&8)!=0)
-									out.print("<li><a href='copyrightAdmin.jsp'>頁尾版權管理</a></li>");
-								if((account.getPrivilege()&16)!=0)
 									out.print("<li><a href='newsAdmin.jsp'>最新消息管理</a></li>");
 								out.print("</ul></li>");
 							}

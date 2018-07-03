@@ -1,15 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page
-	import="com.shop.model.*,java.util.*"%>
+<%@ page import="com.shop.model.*,java.util.*,com.shop.service.*"%>
 <%
-	List<OrderMainBean> list = (ArrayList<OrderMainBean>) session.getAttribute("order");
+	OrderMainBean omb = new OrderMainBean();
+	for (OrderMainBean ele : (ArrayList<OrderMainBean>) session.getAttribute("order")) {
+		if (ele.getId().equals(request.getParameter("id")))
+			omb = ele;
+	}
 %>
 
 <!DOCTYPE html>
 <html>
 <head>
-<title>訂單查詢</title>
+<title>訂單詳細資訊</title>
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, user-scalable=no" />
 <link rel="stylesheet"
@@ -27,52 +30,85 @@
 
 				<!-- Header -->
 				<header id="header">
-					<strong>首頁>訂單查詢</strong>
+					<strong>首頁>訂單查詢>訂單詳細資訊</strong>
 				</header>
 				<br>
+
+				<div class="col-12 col-12-small">
+				<form action="POST" method="POST">
+					<ul>
+						<li>訂單編號 : <%=omb.getId()%></li>
+						<li>收件人 : <%=omb.getReceiver()%></li>
+						<li>收件人地址 : <%=omb.getAddr()%></li>
+						<li>收件人電話 : <%=omb.getTel()%></li>
+						<li>下單日期 : <%=omb.getDate()%></li>
+						<li>出貨狀態 : 
+						<select name="valProcess" required>
+						<%
+							String[] proc = {"出貨準備中","已出貨","買家未取貨","交易完成"};
+							for (int i = 0; i < 4; i++) {
+								if(omb.getProcess().equals(proc[i]))
+									out.print("<option value="+proc[i]+" selected>"+proc[i]+"</option>");
+								else
+									out.print("<option value="+proc[i]+">"+proc[i]+"</option>");
+							}
+						%>
+						</select></li>
+						<li>備註 : <%=omb.getNote()%></li>
+					</ul>
+					<input type="submit" value="確認修改">
+				</form>
+				</div>
 				<div class="table-wrapper">
-					<%
-						if (list != null) {
-					%>
 					<table class="alt">
 						<thead>
 							<tr>
-								<th class="sort"><a class="logo" href="javascript: void(0)"><strong>訂單編號</strong></a></th>
-								<th><strong>收件人</strong></th>
-								<th class="sort"><a class="logo" href="javascript: void(0)"><strong>下單日期</strong></a></th>
-								<th><strong>出貨狀態</strong></th>					
-								<th><strong>備註</strong></th>
+								<th><strong>商品編號</strong></th>
+								<th><strong>商品名稱</strong></th>
+								<th><strong>縮圖</strong></th>
+								<th><strong>分類</strong></th>
+								<th><strong>單價</strong></th>
+								<th><strong>購買數量</strong></th>
+								<th><strong>規格</strong></th>
+								<th><strong>小計</strong></th>
 							</tr>
 						</thead>
 						<tbody>
 							<%
-								AccountBean account = (AccountBean) session.getAttribute("login");
-								String ombHref;
-								for (OrderMainBean omb : list) {
-									if("admin".equals(request.getParameter("account")) && (account.getPrivilege()&2)!=0)
-										ombHref = "orderAdmin.jsp?id=" + omb.getId();
-									else
-										ombHref = "orderDetail.jsp?id=" + omb.getId();
+								OrderExtBean[] oeb = omb.getExt();
+								CommodityService commodityService = (CommodityService) application.getAttribute("commodityService");
+								for (OrderExtBean ele : oeb) {
+									CommodityBean comm = new CommodityBean();
+									commodityService.getById(comm, ele.getCommodityId());
+									String commHref = "itemDetail.jsp?id=" + comm.getId();
 							%>
-							<tr>
-								<td style="vertical-align: middle;" ><a class="logo"
-									href=<%=ombHref%>><strong> <%=omb.getId()%></strong></a></td>
-								<td style="vertical-align: middle;" ><%=omb.getReceiver()%></td>
-								<td style="vertical-align: middle;" ><%=omb.getDate()%></td>
-								<td style="vertical-align: middle;" ><%=omb.getProcess()%></td>
-								<td style="vertical-align: middle;" ><%=omb.getNote()%></td>
+
+							<tr class="main">
+								<td style="vertical-align: middle;"><%=comm.getId()%></td>
+								<td style="vertical-align: middle;"><a class="logo"
+									href=<%=commHref%>><strong> <%=comm.getName()%></strong></a></td>
+								<%
+									String imgPath = "images/" + comm.getImage();
+								%>
+								<td style="width: 123px; height: 124px;"><a
+									href="<%=commHref%>" class="image"><img src=<%=imgPath%>
+										alt="commodityIMG" height="100" /></a></td>
+								<td style="vertical-align: middle;"><%=comm.getCategory()%></td>
+								<td class="price" style="vertical-align: middle;"><%=comm.getPrice()%></td>
+								<td class="quantity" style="vertical-align: middle;"><%=ele.getBuyquantity()%></td>
+								<td style="vertical-align: middle;"><%=comm.getSpec()%></td>
+								<td class="sum" style="vertical-align: middle;"></td>
 							</tr>
 							<%
-								}
-								} else {
-									out.print("目前尚無商品");
 								}
 							%>
 						</tbody>
 					</table>
 				</div>
+				<div class="total"></div>
 			</div>
 		</div>
+
 
 		<!-- Sidebar -->
 		<div id="sidebar">
@@ -169,6 +205,17 @@
 		function getCellValue(row, index) {
 			return $(row).children('td').eq(index).text();
 		}
+	</script>
+	<script>
+		var total = 0;
+		$("tr.main").each(
+				function() {
+					var sum = parseInt($(this).find("td.price").text())
+							* parseInt($(this).find("td.quantity").text());
+					$(this).find("td.sum").text(sum);
+					total += sum;
+					$("div.total").html("<h2>總共金額:" + total + "</h2>");
+				})
 	</script>
 </body>
 </html>

@@ -21,4 +21,8 @@ public class OrderService {
 		return iOrderDAO.getOrderMain(account);
 	}
 	
+	public List<OrderMainBean> getAll(){
+		return iOrderDAO.getAllOrderMain();
+	}
+	
 }

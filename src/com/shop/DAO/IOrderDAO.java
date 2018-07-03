@@ -9,4 +9,5 @@ public interface IOrderDAO {
 	void addOrderMain(OrderMainBean omb);
 	void updateProcess(OrderMainBean omb);
 	List<OrderMainBean> getOrderMain(AccountBean account);
+	List<OrderMainBean> getAllOrderMain();
 }
