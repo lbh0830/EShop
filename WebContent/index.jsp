@@ -19,9 +19,12 @@
 			<div class="inner">
 
 				<!-- Header -->
+				<%
+					MarqueeBean marquee = (MarqueeBean) application.getAttribute("showMarquee");
+				%>
 				<header id="header">
 					<a href="index.jsp" class="logo"><strong>首頁</strong></a>
-					<marquee direction="left" height="30" scrollamount="5" style="color:red;">慶祝195找到好工作，全館加長尺碼全部195!!!</marquee>
+					<marquee direction="left" height="30" scrollamount="5" style="color:red;"><%=marquee.getContext() %></marquee>
 				</header>
 
 				<!-- Banner -->
@@ -94,7 +97,7 @@
 								if((account.getPrivilege()&4)!=0)	
 									out.print("<li><a href='MemberAdmin'>會員管理</a></li>");
 								if((account.getPrivilege()&8)!=0)
-									out.print("<li><a href='newsAdmin.jsp'>最新消息管理</a></li>");
+									out.print("<li><a href='MarqueeAdmin?do=get'>跑馬燈內容管理</a></li>");
 								out.print("</ul></li>");
 							}
 						}
