@@ -107,6 +107,7 @@
 
 				<!-- Footer -->
 				<footer id="footer">
+					<div>在線人數:<%=OnlineCounter.getOnline() %></div>
 					<p class="copyright">&copy; Untitled. All rights reserved.</p>
 				</footer>
 

@@ -147,23 +147,21 @@
 							</ul></li>
 						<li><a href="order.jsp">訂單管理</a></li>
 						<%
-							if (session.getAttribute("login") != null) {
-								AccountBean account = (AccountBean) session.getAttribute("login");
-								if (account.getPrivilege() != 0) {
-									out.print("<li><span class='opener'>後台管理</span><ul>");
-									if ((account.getPrivilege() & 1) != 0)
-										out.print("<li><a href='Commodity?account=admin'>商品管理</a></li>");
-									if ((account.getPrivilege() & 2) != 0)
-										out.print("<li><a href='orderAdmin.jsp'>訂單管理</a></li>");
-									if ((account.getPrivilege() & 4) != 0)
-										out.print("<li><a href='memberAdmin.jsp'>會員管理</a></li>");
-									if ((account.getPrivilege() & 8) != 0)
-										out.print("<li><a href='copyrightAdmin.jsp'>頁尾版權管理</a></li>");
-									if ((account.getPrivilege() & 16) != 0)
-										out.print("<li><a href='newsAdmin.jsp'>最新消息管理</a></li>");
-									out.print("</ul></li>");
-								}
+						if(session.getAttribute("login")!=null){
+							AccountBean account =(AccountBean) session.getAttribute("login");
+							if(account.getPrivilege()!=0){
+								out.print("<li><span class='opener'>後台管理</span><ul>");
+								if((account.getPrivilege()&1)!=0)	
+									out.print("<li><a href='Commodity?account=admin'>商品管理</a></li>");
+								if((account.getPrivilege()&2)!=0)
+									out.print("<li><a href='OrderAdmin'>訂單管理</a></li>");
+								if((account.getPrivilege()&4)!=0)	
+									out.print("<li><a href='MemberAdmin'>會員管理</a></li>");
+								if((account.getPrivilege()&8)!=0)
+									out.print("<li><a href='MarqueeAdmin?do=get'>跑馬燈內容管理</a></li>");
+								out.print("</ul></li>");
 							}
+						}
 						%>
 					</ul>
 				</nav>
