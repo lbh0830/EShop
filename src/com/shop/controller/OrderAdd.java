@@ -62,6 +62,7 @@ public class OrderAdd extends HttpServlet {
 		orderService.addOrder(omb);
 		commodityService.alterQuantity(oeb);
 		req.getSession().removeAttribute("cart");
+		resp.sendRedirect("Order");
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

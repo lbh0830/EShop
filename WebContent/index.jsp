@@ -33,10 +33,7 @@
 						<header>
 							<h1>Title</h1>
 						</header>
-						<p>在這裡扯一些五四三</p>
-						<ul class="actions">
-							<li><a href="#" class="button big">開始購物</a></li>
-						</ul>
+						<p>內文</p>
 					</div>
 					<span class="image object"> <img src="images/HomePic.png"
 						alt="購物圖" />

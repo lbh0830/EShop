@@ -33,7 +33,7 @@
 					MarqueeBean marquee = (MarqueeBean) application.getAttribute("showMarquee");
 				%>
 				<header id="header">
-					<strong>首頁>訂單查詢>訂單詳細資訊</strong>
+					<strong>首頁>訂單管理>訂單詳細資訊</strong>
 					<marquee direction="left" height="30" scrollamount="5" style="color:red;"><%=marquee.getContext() %></marquee>
 				</header>
 				<br>

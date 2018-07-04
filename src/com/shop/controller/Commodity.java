@@ -21,15 +21,14 @@ public class Commodity extends HttpServlet {
 	}
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		resp.setContentType("text/html;charset=utf-8");
 		CommodityService commodityService = (CommodityService) getServletContext().getAttribute("commodityService");
 		HttpSession session = req.getSession();
 		
-		if(req.getParameter("account").equals("admin")) {
+		if("admin".equals(req.getParameter("account"))) {
 			session.setAttribute("commodity", commodityService.get());
 			req.getRequestDispatcher("commodityAdmin.jsp").forward(req, resp);
 		}
-		else if(req.getParameter("account").equals("member")) {
+		else if("member".equals(req.getParameter("account"))) {
 			session.setAttribute("commodity", commodityService.get(req.getParameter("item")));
 			req.getRequestDispatcher("item.jsp").forward(req, resp);
 		}
