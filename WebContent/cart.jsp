@@ -1,9 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page
-	import="com.shop.model.AccountBean,com.shop.model.*,java.util.*,com.shop.service.*"%>
+	import="com.shop.model.*,java.util.*,com.shop.service.*,com.shop.service.*"%>
 <%
 	List<CommodityBean> list = (ArrayList<CommodityBean>) session.getAttribute("cart");
+	CommodityService commodityService = (CommodityService) application.getAttribute("commodityService");
+	for(CommodityBean ele: list){
+		CommodityBean commodity = new CommodityBean();
+		commodityService.getById(commodity, ele.getId());
+		if(commodity.getQuantity()<ele.getQuantity())
+			ele.setQuantity(commodity.getQuantity());
+	}
 %>
 <!DOCTYPE html>
 <html>
@@ -81,12 +88,13 @@
 								<td class="quantity" style="vertical-align: middle;"><select
 									name="valQuantity" required class=<%=comm.getId() %>>
 										<%
-											CommodityService commodityService = (CommodityService) getServletContext()
-															.getAttribute("commodityService");
 											CommodityBean cb = new CommodityBean();
 											commodityService.getById(cb, comm.getId());
-											for (int i = 1; i <= cb.getQuantity(); i++) {
-												if(comm.getQuantity()==i)
+											for (int i = 0; i <= cb.getQuantity(); i++) {
+												if(comm.getQuantity()==0){ 
+													//out.print("<option value='0' selected></option>");
+												} 
+												else if(comm.getQuantity()==i)
 													out.print("<option value="+i+" selected>"+i+"</option>");
 												else
 													out.print("<option value="+i+">"+i+"</option>");
@@ -94,7 +102,11 @@
 													break;
 											}
 										%>
-								</select></td>
+								</select>
+								<%if(cb.getQuantity()==0){ %>
+								商品已售完
+								<%} %>
+								</td>
 								<td style="vertical-align: middle;"><%=comm.getSpec()%></td>
 								<td class="sum" style="vertical-align: middle;"></td>
 							</tr>
@@ -214,7 +226,6 @@
 			total+=sum;
 		});
 		$("div.total").html("<h2>總共金額:"+total+"</h2>");
-		
 	});
 	</script>
 </body>
