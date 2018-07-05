@@ -1,1 +1,0 @@
-mysqldump -uroot -p1234 shop --default-character-set=utf8 > d:\shop.sql
