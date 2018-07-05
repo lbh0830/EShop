@@ -32,6 +32,11 @@ public class Commodity extends HttpServlet {
 			session.setAttribute("commodity", commodityService.get(req.getParameter("item")));
 			req.getRequestDispatcher("item.jsp").forward(req, resp);
 		}
+		else if("detail".equals(req.getParameter("get"))) {
+			String id = req.getParameter("id");
+			session.setAttribute("commodity", commodityService.get());
+			req.getRequestDispatcher("itemDetail.jsp?id="+id).forward(req, resp);
+		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

@@ -85,7 +85,7 @@
 								for (OrderExtBean ele : oeb) {
 									CommodityBean comm = new CommodityBean();
 									commodityService.getById(comm, ele.getCommodityId());
-									String commHref = "itemDetail.jsp?id=" + comm.getId();
+									String commHref = "Commodity?get=detail&id=" + comm.getId();
 							%>
 
 							<tr class="main">
