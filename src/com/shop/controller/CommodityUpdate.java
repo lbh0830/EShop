@@ -25,7 +25,7 @@ public class CommodityUpdate extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		CommodityService commodityService = (CommodityService) getServletContext().getAttribute("commodityService");
 		CommodityBean cb = new CommodityBean();
-		SmartUpload su = new SmartUpload();
+		SmartUpload su = new SmartUpload("UTF-8");
 		boolean hasImage = false;
 		su.initialize(getServletConfig(), req, resp);
 		su.setAllowedFilesList("png,jpg,bmp,gif,PNG,JPG,BMP,GIF");
