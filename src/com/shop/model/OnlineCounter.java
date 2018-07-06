@@ -13,6 +13,8 @@ public class OnlineCounter {
 
 	public static void reduce() {
 		online--;
+		if(online<0)
+			online = 0;
 	}
 
 }
